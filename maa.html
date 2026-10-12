@@ -27,7 +27,7 @@
   }
   *{margin:0;padding:0;box-sizing:border-box}
   [hidden]{display:none!important}
-  html{scroll-behavior:smooth}
+  html{scroll-behavior:smooth;overflow-x:clip}
   @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
   body{font-family:var(--body);color:var(--ink);background:var(--bg);font-size:17px;line-height:1.65;overflow-x:hidden}
   svg{display:block}
@@ -223,7 +223,7 @@
     </a>
     <nav class="nav-links" aria-label="Main">
       <a href="/#products">Goodies</a>
-      <a href="/#recipes">Recipes</a>
+      <a href="/recipes">Recipes</a>
       <a href="/maa" aria-current="page">Meet Maa</a>
       <a class="btn" href="/#products">Order now</a>
     </nav>

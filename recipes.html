@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<!--
+  RECIPES PAGE  →  vanakusum.com/recipes
+  To add or edit a recipe, change the RECIPES list near the bottom of this file.
+  Each recipe gets its own shareable link: vanakusum.com/recipes#<id>
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recipes — Vana Kusum</title>
+<meta name="description" content="Sattu sharbat, sattu paratha, litti-chokha and more — easy home recipes for every Vana Kusum pouch.">
+<meta name="theme-color" content="#FFF8EE">
+<meta property="og:title" content="What to make with your Vana Kusum pouch">
+<meta property="og:description" content="Sattu sharbat, sattu paratha, litti-chokha and more — the way we make them at home in Palamu.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 4c4 6 4 12 0 16-4-4-4-10 0-16Z' fill='%23E2593A'/%3E%3Cpath d='M8 10c5 2 8 7 8 12-6-1-9-6-8-12Z' fill='%23C94B2E'/%3E%3Cpath d='M24 10c-5 2-8 7-8 12 6-1 9-6 8-12Z' fill='%23C94B2E'/%3E%3Ccircle cx='16' cy='25' r='3' fill='%23F5A742'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Mukta:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#4A3B33; --muted:#7d6b5f; --bg:#FFF8EE;
+    --butter:#FFE1A8; --blush:#FFD3C4; --pista:#CFE8C5; --sky:#CDE4F2;
+    --mango:#F5A742; --tomato:#E2593A; --leaf:#7FB069;
+    --display:'Baloo 2',cursive; --body:'Mukta',sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  [hidden]{display:none!important}
+  html{scroll-behavior:smooth;overflow-x:clip}
+  @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+  body{font-family:var(--body);color:var(--ink);background:var(--bg);font-size:17px;line-height:1.65;overflow-x:hidden}
+  svg{display:block}
+  :focus-visible{outline:3px solid var(--mango);outline-offset:3px;border-radius:8px}
+  .wrap{max-width:1040px;margin:0 auto;padding-inline:22px}
+
+  header{position:sticky;top:0;z-index:60;background:rgba(255,248,238,.94);backdrop-filter:blur(8px)}
+  .nav{display:flex;align-items:center;gap:18px;padding-block:12px}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+  .brand-dot{width:44px;height:44px;border-radius:46% 54% 52% 48%/55% 46% 54% 45%;background:var(--butter);
+             display:flex;align-items:center;justify-content:center}
+  .brand-dot svg{width:32px;height:30px}
+  .brand-name{font-family:var(--display);font-weight:800;font-size:1.3rem;line-height:1}
+  .brand-tag{font-size:.72rem;font-weight:600;color:var(--tomato)}
+  .nav-links{margin-left:auto;display:flex;gap:8px;align-items:center}
+  .nav-links a{text-decoration:none;font-family:var(--display);font-weight:600;font-size:.95rem;color:var(--ink);
+               padding:8px 16px;border-radius:999px}
+  .nav-links a:hover,.nav-links a[aria-current]{background:var(--butter)}
+  .btn{display:inline-block;background:var(--tomato);color:#fff;padding:13px 28px;border-radius:999px;
+       font-family:var(--display);font-weight:700;font-size:1rem;text-decoration:none;border:none;cursor:pointer;
+       box-shadow:0 5px 0 #C24E33;transition:transform .12s,box-shadow .12s}
+  .btn:hover{transform:translateY(3px);box-shadow:0 2px 0 #C24E33}
+  .nav-links a.btn{color:#fff;padding:9px 18px}
+  .nav-links a.btn:hover{background:var(--tomato)}
+  .btn-ghost{background:#fff;color:var(--ink);border:2.5px solid var(--ink);box-shadow:0 5px 0 var(--ink)}
+  .btn-ghost:hover{box-shadow:0 2px 0 var(--ink)}
+  @media(max-width:760px){.nav-links a:not(.btn){display:none}}
+
+  /* hero */
+  .hero{position:relative;text-align:center;padding:64px 0 10px}
+  .blob{position:absolute;border-radius:46% 54% 52% 48%/55% 46% 54% 45%;z-index:-1}
+  .b1{width:240px;height:240px;background:var(--pista);top:10px;left:-90px}
+  .b2{width:170px;height:170px;background:var(--blush);top:120px;right:-60px}
+  .tag{display:inline-block;background:var(--butter);font-family:var(--display);font-weight:700;
+       padding:7px 18px;border-radius:999px;transform:rotate(-2deg)}
+  h1{font-family:var(--display);font-weight:800;font-size:clamp(2.3rem,5.6vw,3.8rem);line-height:1.05;margin-top:16px}
+  h1 span{color:var(--tomato)}
+  .lede{font-size:1.12rem;color:#6d5c50;margin:14px auto 0;max-width:48ch}
+  .heroart{width:min(330px,80vw);margin:26px auto 0}
+
+  /* filters */
+  .filters{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:34px}
+  .chip{border:2.5px solid var(--ink);background:#fff;border-radius:999px;padding:7px 18px;cursor:pointer;
+        font-family:var(--display);font-weight:700;font-size:.92rem;color:var(--ink)}
+  .chip[aria-pressed="true"]{background:var(--ink);color:#fff}
+  .chip small{font-family:var(--body);font-weight:600;opacity:.7;margin-left:4px}
+
+  /* cards */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:24px;margin-top:34px}
+  .rcard{background:#fff;border-radius:26px;overflow:hidden;border:2.5px solid var(--ink);box-shadow:0 6px 0 var(--ink);
+         text-align:left;cursor:pointer;font:inherit;color:inherit;display:flex;flex-direction:column;transition:transform .15s,box-shadow .15s}
+  .rcard:hover{transform:translateY(-3px);box-shadow:0 9px 0 var(--ink)}
+  .rtop{height:150px;display:flex;align-items:center;justify-content:center;position:relative}
+  .rtop svg{width:104px;height:104px}
+  .rtop .uses{position:absolute;left:14px;top:14px;background:#fff;border-radius:999px;padding:3px 12px;
+              font-size:.76rem;font-weight:700;color:var(--tomato);border:2px solid var(--ink)}
+  .rbody{padding:18px 20px 20px;display:flex;flex-direction:column;flex:1}
+  .rbody .hi{color:var(--tomato);font-weight:700;font-size:.9rem}
+  .rbody h3{font-family:var(--display);font-weight:800;font-size:1.3rem;line-height:1.2}
+  .rbody p{color:#6d5c50;font-size:.94rem;margin-top:6px;flex:1}
+  .facts{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+  .facts span{background:var(--bg);border-radius:999px;padding:3px 12px;font-size:.8rem;font-weight:600;color:var(--muted)}
+  .rbody .go{font-family:var(--display);font-weight:700;color:var(--tomato);margin-top:12px}
+
+  /* pairs band */
+  .pairs{background:var(--ink);color:#FFF8EE;border-radius:34px;padding:40px 28px;margin-top:70px;text-align:center}
+  .pairs h2{font-family:var(--display);font-weight:800;font-size:clamp(1.5rem,3.4vw,2.2rem)}
+  .pairs>p{color:#E9DCCB;margin-top:4px}
+  .pgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:26px;text-align:left}
+  .pgrid div{background:rgba(255,248,238,.08);border-radius:20px;padding:18px}
+  .pgrid b{font-family:var(--display);font-weight:800;font-size:1.1rem;display:block;color:var(--butter)}
+  .pgrid p{color:#E9DCCB;font-size:.92rem;margin-top:4px}
+  @media(max-width:760px){.pgrid{grid-template-columns:1fr}}
+
+  /* recipe dialog */
+  dialog{border:none;padding:0;background:transparent;max-width:min(760px,calc(100% - 24px));width:100%;margin:auto}
+  dialog::backdrop{background:rgba(74,59,51,.55)}
+  .sheet{background:var(--bg);border-radius:30px;overflow:hidden;max-height:calc(100vh - 32px);display:flex;flex-direction:column}
+  .shead2{position:relative;padding:26px 26px 20px;display:flex;gap:18px;align-items:center}
+  .shead2 .ic{flex:none;width:92px;height:92px;border-radius:50%;background:#fff;border:3px solid var(--ink);display:flex;align-items:center;justify-content:center}
+  .shead2 .ic svg{width:66px;height:66px}
+  .shead2 .hi{color:var(--tomato);font-weight:700;font-size:.92rem}
+  .shead2 h2{font-family:var(--display);font-weight:800;font-size:clamp(1.5rem,4vw,2rem);line-height:1.1}
+  .shead2 .facts span{background:#fff}
+  .close{position:absolute;top:14px;right:14px;width:40px;height:40px;border-radius:50%;border:none;background:#fff;
+         font-size:1.4rem;font-weight:800;cursor:pointer;color:var(--ink)}
+  .sbody{overflow-y:auto;padding:4px 26px 26px}
+  .cols{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:22px}
+  .box{background:#fff;border-radius:22px;padding:20px}
+  .box h3{font-family:var(--display);font-weight:800;font-size:1.15rem}
+  .box h4{font-family:var(--display);font-weight:700;font-size:.92rem;color:var(--tomato);margin-top:12px}
+  .ings{list-style:none;margin-top:8px}
+  .ings li{border-bottom:1.5px dashed #EADFCB}
+  .ings li:last-child{border-bottom:none}
+  .ings label{display:flex;gap:10px;align-items:flex-start;padding:7px 0;cursor:pointer;font-size:.95rem}
+  .ings input{appearance:none;flex:none;width:20px;height:20px;border:2.5px solid var(--ink);border-radius:6px;margin-top:3px;cursor:pointer;background:#fff}
+  .ings input:checked{background:var(--leaf) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3.2 3L15 6.5' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/100% no-repeat;border-color:var(--leaf)}
+  .ings input:checked+span{text-decoration:line-through;color:var(--muted)}
+  .ings .q{font-weight:700;margin-right:4px}
+  .ings .ours{background:var(--butter);border-radius:6px;padding:0 6px;font-size:.78rem;font-weight:700;margin-left:4px;white-space:nowrap}
+  .steps{list-style:none;counter-reset:s;margin-top:10px}
+  .steps li{counter-increment:s;display:flex;gap:12px;margin-top:12px;font-size:.96rem}
+  .steps li::before{content:counter(s);flex:none;width:30px;height:30px;border-radius:50%;background:var(--tomato);color:#fff;
+                    font-family:var(--display);font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:1px}
+  .tip{background:var(--pista);border-radius:18px;padding:14px 16px;margin-top:16px;font-size:.94rem}
+  .tip b{font-family:var(--display)}
+  .sfoot{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:20px;padding:18px 20px;background:var(--blush);border-radius:22px}
+  .sfoot p{flex:1;min-width:200px;font-weight:600}
+  .sfoot .btn{padding:11px 22px}
+  .sharebtn{background:none;border:none;font-family:var(--display);font-weight:700;color:var(--ink);text-decoration:underline;cursor:pointer;font-size:.95rem}
+  @media(max-width:700px){
+    .cols{grid-template-columns:1fr}
+    .shead2{padding:22px 18px 16px;padding-right:54px}
+    .shead2 .ic{width:68px;height:68px}.shead2 .ic svg{width:48px;height:48px}
+    .sbody{padding:4px 16px 18px}
+    dialog{max-width:100%}
+    .sheet{border-radius:26px 26px 0 0;max-height:94vh}
+    dialog[open]{margin:auto 0 0}
+  }
+
+  .cta{background:var(--butter);border-radius:34px;padding:40px 28px;margin-top:70px;text-align:center}
+  .cta h2{font-family:var(--display);font-weight:800;font-size:clamp(1.5rem,3.4vw,2.2rem)}
+  .cta p{color:#6d5c50;margin-top:6px}
+  .cta .btn{margin-top:20px}
+  footer{background:var(--butter);border-radius:34px 34px 0 0;text-align:center;padding:40px 22px 34px;margin-top:70px}
+  footer p{font-size:.88rem;color:#6d5c50;line-height:1.9}
+  footer a{color:var(--ink);font-weight:700;text-decoration:none}
+  .heart{color:var(--tomato)}
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 20px;
+         border-radius:999px;font-weight:600;z-index:100}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <g id="mark">
+    <path d="M-42,-4 Q-34,20 -4,24" fill="none" stroke="#4A3B33" stroke-width="6" stroke-linecap="round"/>
+    <path d="M42,-4 Q34,20 4,24" fill="none" stroke="#4A3B33" stroke-width="6" stroke-linecap="round"/>
+    <g transform="translate(0,6) scale(0.55)"><use href="#flower"/></g>
+  </g>
+  <g id="flower">
+    <g transform="rotate(-26)"><path d="M0,-14 C-12,-30 -14,-52 -2,-66 C0,-50 8,-32 0,-14 Z" fill="#E2593A"/></g>
+    <path d="M0,-16 C-14,-36 -15,-64 0,-82 C15,-64 14,-36 0,-16 Z" fill="#D4532F"/>
+    <g transform="rotate(26)"><path d="M0,-14 C-12,-30 -13,-54 0,-68 C13,-54 12,-30 0,-14 Z" fill="#E2593A"/></g>
+    <circle cx="0" cy="-8" r="5" fill="#F5A742"/>
+  </g>
+</defs></svg>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="/">
+      <span class="brand-dot"><svg viewBox="-50 -50 100 82"><use href="#mark"/></svg></span>
+      <span><span class="brand-name">Vana Kusum</span><br><span class="brand-tag">Ghar jaisa, khushi jaisa</span></span>
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="/#products">Goodies</a>
+      <a href="/recipes" aria-current="page">Recipes</a>
+      <a href="/maa">Meet Maa</a>
+      <a class="btn" href="/#products">Order now</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <span class="blob b1" aria-hidden="true"></span>
+    <span class="blob b2" aria-hidden="true"></span>
+    <span class="tag">Maa's recipe box 🍲</span>
+    <h1>What to make with<br>your <span>Vana Kusum pouch</span></h1>
+    <p class="lede">Easy, everyday recipes — the way we make them at home in Palamu. Tap any recipe for ingredients and steps.</p>
+    <div class="heroart" aria-hidden="true">
+      <svg viewBox="0 0 330 170">
+        <ellipse cx="165" cy="150" rx="150" ry="14" fill="#F2E6D2"/>
+        <!-- glass of sharbat -->
+        <path d="M40 54h50l-7 92H47Z" fill="#E8D3A8" stroke="#4A3B33" stroke-width="3.5" stroke-linejoin="round"/>
+        <path d="M43 80h44" stroke="#4A3B33" stroke-width="3"/>
+        <circle cx="58" cy="98" r="3" fill="#7FB069"/><circle cx="72" cy="112" r="3" fill="#7FB069"/>
+        <path d="M76 30l-8 52" stroke="#E2593A" stroke-width="5" stroke-linecap="round"/>
+        <!-- litti plate -->
+        <ellipse cx="185" cy="132" rx="72" ry="18" fill="#FFF8EE" stroke="#4A3B33" stroke-width="3.5"/>
+        <circle cx="160" cy="112" r="20" fill="#E9B97A" stroke="#4A3B33" stroke-width="3.5"/>
+        <circle cx="200" cy="106" r="22" fill="#E39A33" stroke="#4A3B33" stroke-width="3.5"/>
+        <path d="M152 106q8 6 16 0M190 100q10 6 20 0" fill="none" stroke="#4A3B33" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M222 124c6-10 22-12 28-2" fill="#8C5A9A" stroke="#4A3B33" stroke-width="3"/>
+        <!-- paratha -->
+        <ellipse cx="282" cy="128" rx="36" ry="12" fill="#F5C169" stroke="#4A3B33" stroke-width="3.5"/>
+        <circle cx="272" cy="126" r="2.6" fill="#B5712E"/><circle cx="292" cy="130" r="2.6" fill="#B5712E"/><circle cx="284" cy="122" r="2.2" fill="#B5712E"/>
+        <!-- steam & flower -->
+        <path d="M190 72q-8-12 2-22M210 70q-8-12 2-22" fill="none" stroke="#D9CBB0" stroke-width="3" stroke-linecap="round"/>
+        <g transform="translate(286,70) scale(.32) rotate(14)"><use href="#flower"/></g>
+      </svg>
+    </div>
+  </section>
+
+  <div class="filters" id="filters" role="group" aria-label="Filter recipes by product"></div>
+  <div class="grid" id="grid"></div>
+
+  <section class="pairs">
+    <h2>No recipe needed</h2>
+    <p>Some things are best just as Maa makes them. Here's how we enjoy them at home.</p>
+    <div class="pgrid">
+      <div><b>Thekua + chai</b><p>Dip it in hot adrak chai. Morning, evening, or a 3 pm slump — always works.</p></div>
+      <div><b>Til laddu after dinner</b><p>One laddu after a winter meal. Til and gur, the classic Sankranti way.</p></div>
+      <div><b>Auri with tea-time</b><p>Crispy til-auri or tisi-auri straight from the jar, with a cup of tea.</p></div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <h2>Got a pouch? Start cooking.</h2>
+    <p>Don't have one yet? Maa makes every order fresh.</p>
+    <a class="btn" href="/#products">Shop the goodies</a>
+  </section>
+</main>
+
+<dialog id="recipe" aria-labelledby="rTitle">
+  <div class="sheet">
+    <div class="shead2" id="rHead"></div>
+    <div class="sbody" id="rBody"></div>
+  </div>
+</dialog>
+
+<footer>
+  <p><strong>Vana Kusum Foods</strong> · Medininagar (Daltonganj), Palamu, Jharkhand — 822101<br>
+  GSTIN 20ASWPD0806B1ZF · <a href="mailto:hello@vanakusum.in">hello@vanakusum.in</a> · <a href="https://instagram.com/vanakusum" rel="noopener">@vanakusum</a><br>
+  Made with <span class="heart">♥</span> by Maa, at Medininagar</p>
+</footer>
+
+<script>
+/* ============ RECIPES — edit here ============
+   uses:  which pouch the recipe needs (must match a filter below)
+   ours:  true marks an ingredient that comes from our pouch            */
+const FILTERS = ["All", "Pure Sattu", "Litti Sattu Kit"];
+
+const RECIPES = [
+  { id:"sattu-sharbat", name:"Namkeen sattu sharbat", hindi:"नमकीन सत्तू शरबत", uses:"Pure Sattu", icon:"glass", color:"#CFE8C5",
+    time:"2 min", serves:"1 glass", level:"Super easy",
+    blurb:"Bihar's summer cooler. Tangy, salty, filling — a desi protein shake in two minutes.",
+    ingredients:[
+      ["3 tbsp","Pure Sattu",true],["1 glass (250 ml)","chilled water"],["¼ tsp","kala namak"],["¼ tsp","roasted jeera powder"],
+      ["½","lemon, juiced"],["1","green chilli, finely chopped (optional)"],["1 tbsp","onion, finely chopped (optional)"],["few","mint or coriander leaves"]],
+    steps:[
+      "Put the sattu in a glass and add 2–3 tbsp of water. Stir into a smooth paste — this stops lumps.",
+      "Pour in the rest of the chilled water and stir well.",
+      "Add kala namak, jeera, lemon juice, chilli, onion and mint. Stir again.",
+      "Drink straight away. Sattu settles, so give it a stir between sips."],
+    tip:"Make the paste first. Dumping sattu straight into a full glass of water is how you get lumps." },
+
+  { id:"meetha-sattu", name:"Meetha gur sattu sharbat", hindi:"मीठा सत्तू शरबत", uses:"Pure Sattu", icon:"glassSweet", color:"#FFE1A8",
+    time:"3 min", serves:"1 glass", level:"Super easy",
+    blurb:"The sweet version kids love — sattu, gur and a pinch of elaichi.",
+    ingredients:[
+      ["3 tbsp","Pure Sattu",true],["1½ tbsp","gur (jaggery), grated — or to taste"],["1 glass (250 ml)","chilled water or cold milk"],
+      ["1 pinch","elaichi powder"],["2–3","ice cubes"]],
+    steps:[
+      "Dissolve the grated gur in a little water first, so it doesn't sit at the bottom.",
+      "Add the sattu and stir into a smooth paste.",
+      "Pour in the rest of the water (or milk) and stir well.",
+      "Add elaichi and ice. Stir and drink chilled."],
+    tip:"With cold milk instead of water, this becomes a proper breakfast in a glass." },
+
+  { id:"sattu-paratha", name:"Sattu paratha", hindi:"सत्तू पराठा", uses:"Pure Sattu", icon:"paratha", color:"#FFD3C4",
+    time:"25 min", serves:"4 parathas", level:"Easy",
+    blurb:"Spicy, tangy sattu stuffing in a crisp, ghee-roasted paratha. Dahi and achaar on the side.",
+    ingredients:[
+      ["2 cups","atta (whole wheat flour)"],["as needed","water, to knead"],["1 pinch","salt, for the dough"],
+      ["1 cup","Pure Sattu",true],["1 small","onion, finely chopped"],["2","green chillies, finely chopped"],["2 tbsp","coriander, chopped"],
+      ["½ tsp","ajwain"],["½ tsp","kala namak + salt to taste"],["1 tbsp","lemon juice"],["1½ tbsp","mustard oil"],["for roasting","ghee"]],
+    steps:[
+      "Knead the atta, salt and water into a soft dough. Cover and rest for 15 minutes.",
+      "Mix sattu, onion, chilli, coriander, ajwain, salt, kala namak, lemon juice and mustard oil. It should hold together when pressed — add 1–2 tbsp water if it's too dry.",
+      "Roll a dough ball into a small disc, put 2 tbsp filling in the middle, close it up and roll out gently.",
+      "Roast on a hot tawa, then apply ghee on both sides until golden and crisp.",
+      "Serve hot with dahi, achaar or aloo chokha."],
+    tip:"Raw mustard oil in the filling is what gives sattu paratha its real Bihari taste — don't skip it." },
+
+  { id:"sattu-chilla", name:"Sattu chilla", hindi:"सत्तू चीला", uses:"Pure Sattu", icon:"chilla", color:"#CDE4F2",
+    time:"15 min", serves:"4 chillas", level:"Easy",
+    blurb:"A quick high-protein breakfast. Mix, pour, flip — done.",
+    ingredients:[
+      ["1 cup","Pure Sattu",true],["2 tbsp","atta"],["¾ cup","water (approx.)"],["1 small","onion, finely chopped"],
+      ["1 small","tomato, finely chopped"],["1","green chilli, chopped"],["2 tbsp","coriander, chopped"],["¼ tsp","ajwain"],["to taste","salt"],["for cooking","oil or ghee"]],
+    steps:[
+      "Whisk sattu, atta and water into a smooth, pourable batter. Rest for 5 minutes.",
+      "Stir in onion, tomato, chilli, coriander, ajwain and salt.",
+      "Heat a lightly oiled tawa. Pour a ladle of batter and spread it gently.",
+      "Cook until the edges lift, flip, and cook the other side until golden.",
+      "Serve with green chutney or dahi."],
+    tip:"If the batter thickens while resting, add a splash of water — sattu keeps soaking it up." },
+
+  { id:"litti", name:"Litti at home", hindi:"लिट्टी", uses:"Litti Sattu Kit", icon:"litti", color:"#FFE1A8",
+    time:"45 min", serves:"10–12 littis", level:"Weekend project",
+    blurb:"Bihar's most-loved dish. Crisp outside, spicy sattu inside, dunked in ghee. No coal fire needed.",
+    ingredients:[
+      ["2 cups","atta"],["¼ tsp","ajwain"],["½ tsp","salt"],["2 tbsp","ghee, for the dough"],["as needed","water, to knead"],
+      ["1 cup","Litti Sattu Kit masala",true],["1 tbsp","mustard oil"],["1 tbsp","lemon juice"],["2–3 tbsp","water, to bind the filling"],
+      ["optional","chopped onion, garlic, ginger"],["for dipping","melted ghee"]],
+    steps:[
+      "Mix atta, ajwain, salt and ghee. Knead a firm (not soft) dough with water. Rest 15 minutes.",
+      "Mix the kit masala with mustard oil, lemon juice and a little water until it holds when pressed. Add onion, garlic and ginger if you like.",
+      "Make lemon-sized dough balls, flatten into cups, fill with a spoon of masala and seal them round.",
+      "Cook them — oven: 200 °C for 25–30 min, turning halfway. Appe pan: covered, on low, 20 min, turning often. They're done when golden with small cracks.",
+      "Break them open slightly and dunk in hot melted ghee. Serve with baingan chokha."],
+    tip:"Keep the dough firmer than roti dough. Soft dough spreads and cracks too early." },
+
+  { id:"baingan-chokha", name:"Baingan chokha", hindi:"बैंगन चोखा", uses:"Litti Sattu Kit", pairs:true, icon:"chokha", color:"#FFD3C4",
+    time:"20 min", serves:"3–4", level:"Easy",
+    blurb:"Smoky mashed baingan with raw mustard oil — the partner litti can't live without.",
+    ingredients:[
+      ["1 large","round baingan (brinjal)"],["2","tomatoes"],["4","garlic cloves"],["2","green chillies"],
+      ["1 small","onion, finely chopped"],["2 tbsp","coriander, chopped"],["1½ tbsp","mustard oil"],["to taste","salt"]],
+    steps:[
+      "Make a few slits in the baingan and push the garlic cloves in.",
+      "Roast the baingan and tomatoes directly on the gas flame, turning, until fully charred and soft.",
+      "Let them cool a little, then peel off the burnt skin.",
+      "Mash everything with chilli, onion, coriander, salt and raw mustard oil.",
+      "Serve with hot litti and a spoon of ghee."],
+    tip:"Don't wash off the charred bits completely — a little char is where the smoky taste comes from." },
+];
+
+/* ============ icons ============ */
+const I="#4A3B33";
+const ICONS={
+  glass:`<svg viewBox="0 0 80 80"><path d="M22 14h36l-5 56H27Z" fill="#E8D3A8" stroke="${I}" stroke-width="3.5" stroke-linejoin="round"/><path d="M24 30h32" stroke="${I}" stroke-width="3"/><circle cx="34" cy="44" r="2.5" fill="#7FB069"/><circle cx="45" cy="54" r="2.5" fill="#7FB069"/><circle cx="40" cy="40" r="2" fill="#7FB069"/><path d="M52 4l-6 34" stroke="#E2593A" stroke-width="4" stroke-linecap="round"/><path d="M50 24a8 8 0 1 1 14 6" fill="#F5E35A" stroke="${I}" stroke-width="2.5"/></svg>`,
+  glassSweet:`<svg viewBox="0 0 80 80"><path d="M22 14h36l-5 56H27Z" fill="#F0CF9A" stroke="${I}" stroke-width="3.5" stroke-linejoin="round"/><path d="M24 30h32" stroke="${I}" stroke-width="3"/><rect x="31" y="38" width="9" height="9" rx="2" fill="#fff" stroke="${I}" stroke-width="2"/><rect x="41" y="48" width="9" height="9" rx="2" fill="#fff" stroke="${I}" stroke-width="2"/><path d="M52 4l-6 34" stroke="#E2593A" stroke-width="4" stroke-linecap="round"/></svg>`,
+  paratha:`<svg viewBox="0 0 80 80"><ellipse cx="40" cy="52" rx="32" ry="14" fill="#FFF8EE" stroke="${I}" stroke-width="3"/><ellipse cx="40" cy="46" rx="26" ry="11" fill="#F5C169" stroke="${I}" stroke-width="3"/><circle cx="32" cy="45" r="2.4" fill="#B5712E"/><circle cx="46" cy="49" r="2.4" fill="#B5712E"/><circle cx="42" cy="41" r="2" fill="#B5712E"/><path d="M36 26q-5-8 1-14M46 26q-5-8 1-14" fill="none" stroke="#D9CBB0" stroke-width="3" stroke-linecap="round"/></svg>`,
+  chilla:`<svg viewBox="0 0 80 80"><circle cx="40" cy="44" r="27" fill="#3E3A38" stroke="${I}" stroke-width="3"/><path d="M66 38h12" stroke="${I}" stroke-width="6" stroke-linecap="round"/><circle cx="40" cy="44" r="20" fill="#E9C27A" stroke="${I}" stroke-width="2.5"/><circle cx="33" cy="40" r="2.5" fill="#E2593A"/><circle cx="46" cy="48" r="2.5" fill="#7FB069"/><circle cx="44" cy="38" r="2" fill="#E2593A"/><circle cx="34" cy="51" r="2" fill="#7FB069"/></svg>`,
+  litti:`<svg viewBox="0 0 80 80"><ellipse cx="40" cy="60" rx="34" ry="11" fill="#FFF8EE" stroke="${I}" stroke-width="3"/><circle cx="28" cy="44" r="13" fill="#E9B97A" stroke="${I}" stroke-width="3"/><circle cx="52" cy="42" r="14" fill="#E39A33" stroke="${I}" stroke-width="3"/><circle cx="40" cy="54" r="12" fill="#D98B2B" stroke="${I}" stroke-width="3"/><path d="M23 42q5 3 10 0M46 39q6 3 12 0M35 52q5 3 10 0" fill="none" stroke="${I}" stroke-width="2.2" stroke-linecap="round"/></svg>`,
+  chokha:`<svg viewBox="0 0 80 80"><path d="M10 40h60a30 22 0 0 1-60 0Z" fill="#FFF8EE" stroke="${I}" stroke-width="3"/><path d="M16 40q24-12 48 0" fill="#9C7A5E" stroke="${I}" stroke-width="2.5"/><path d="M50 22c4-8 14-10 18-4-2 8-12 10-18 4Z" fill="#7A4C8A" stroke="${I}" stroke-width="2.5"/><path d="M50 22l-6-6" stroke="#7FB069" stroke-width="3" stroke-linecap="round"/><circle cx="30" cy="38" r="2" fill="#7FB069"/><circle cx="40" cy="35" r="2" fill="#E2593A"/></svg>`,
+};
+
+/* ============ render ============ */
+const $=id=>document.getElementById(id);
+let active="All";
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+
+function renderFilters(){
+  $("filters").innerHTML=FILTERS.map(f=>{
+    const n=f==="All"?RECIPES.length:RECIPES.filter(r=>r.uses===f).length;
+    return `<button type="button" class="chip" aria-pressed="${f===active}" data-f="${esc(f)}">${esc(f)}<small>${n}</small></button>`;
+  }).join("");
+}
+function renderGrid(){
+  const list=active==="All"?RECIPES:RECIPES.filter(r=>r.uses===active);
+  $("grid").innerHTML=list.map(r=>`
+    <button type="button" class="rcard" data-id="${r.id}" aria-label="Open recipe: ${esc(r.name)}">
+      <div class="rtop" style="background:${r.color}"><span class="uses">${r.pairs?"Goes with litti":"Uses "+esc(r.uses)}</span>${ICONS[r.icon]||""}</div>
+      <div class="rbody">
+        <div class="hi">${esc(r.hindi)}</div>
+        <h3>${esc(r.name)}</h3>
+        <p>${esc(r.blurb)}</p>
+        <div class="facts"><span>⏱ ${esc(r.time)}</span><span>🍽 ${esc(r.serves)}</span><span>${esc(r.level)}</span></div>
+        <div class="go">See recipe →</div>
+      </div>
+    </button>`).join("");
+}
+$("filters").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;active=b.dataset.f;renderFilters();renderGrid();});
+$("grid").addEventListener("click",e=>{const c=e.target.closest(".rcard");if(c)openRecipe(c.dataset.id,true);});
+
+const dlg=$("recipe");
+function openRecipe(id,push){
+  const r=RECIPES.find(x=>x.id===id); if(!r) return;
+  $("rHead").style.background=r.color;
+  $("rHead").innerHTML=`
+    <div class="ic" aria-hidden="true">${ICONS[r.icon]||""}</div>
+    <div><div class="hi">${esc(r.hindi)}</div><h2 id="rTitle">${esc(r.name)}</h2>
+      <div class="facts"><span>⏱ ${esc(r.time)}</span><span>🍽 ${esc(r.serves)}</span><span>${esc(r.level)}</span></div></div>
+    <button type="button" class="close" aria-label="Close recipe" onclick="closeRecipe()">×</button>`;
+  const prod=r.pairs?"Litti Sattu Kit":r.uses;
+  $("rBody").innerHTML=`
+    <div class="cols">
+      <div class="box"><h3>You'll need</h3>
+        <ul class="ings">${r.ingredients.map(([q,n,ours])=>`<li><label><input type="checkbox"><span><span class="q">${esc(q)}</span>${esc(n)}${ours?'<span class="ours">from your pouch</span>':""}</span></label></li>`).join("")}</ul>
+      </div>
+      <div class="box"><h3>How to make it</h3>
+        <ol class="steps">${r.steps.map(s=>`<li><span>${esc(s)}</span></li>`).join("")}</ol>
+        <div class="tip"><b>Kitchen tip:</b> ${esc(r.tip)}</div>
+      </div>
+    </div>
+    <div class="sfoot">
+      <p>${r.pairs?"Made for eating with litti — get the Litti Sattu Kit.":"Made with Vana Kusum "+esc(r.uses)+", fresh from Maa's kitchen."}</p>
+      <a class="btn" href="/#products">Get ${esc(prod)}</a>
+      <button type="button" class="sharebtn" onclick="shareRecipe('${r.id}')">Share recipe</button>
+    </div>`;
+  if(!dlg.open) dlg.showModal();
+  $("rBody").scrollTop=0;
+  if(push) history.replaceState(null,"","#"+r.id);
+}
+function closeRecipe(){ if(dlg.open) dlg.close(); }
+dlg.addEventListener("close",()=>{ if(location.hash) history.replaceState(null,"",location.pathname+location.search); });
+dlg.addEventListener("click",e=>{ if(e.target===dlg) closeRecipe(); });
+
+function toast(msg){const t=document.createElement("div");t.className="toast";t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),2200);}
+async function shareRecipe(id){
+  const r=RECIPES.find(x=>x.id===id);
+  const url=location.origin+location.pathname+"#"+id;
+  try{
+    if(navigator.share){await navigator.share({title:r.name+" — Vana Kusum",text:r.blurb,url});return;}
+    await navigator.clipboard.writeText(url); toast("Link copied");
+  }catch(e){ if(e&&e.name!=="AbortError") toast("Couldn't share — copy the link from the address bar"); }
+}
+
+renderFilters(); renderGrid();
+if(location.hash) openRecipe(location.hash.slice(1),false);
+</script>
+</body>
+</html>
