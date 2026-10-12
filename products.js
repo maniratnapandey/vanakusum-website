@@ -16,7 +16,7 @@ const CATALOG = {
 
   products: [
     { id:"thekua", name:"Thekua", hindi:"ठेकुआ", art:"thekua",
-      sizes:[{w:"400 g",price:239},{w:"800 g",price:449}],
+      sizes:[{w:"400 g",price:399},{w:"800 g",price:749}],
       hdesc:"गुड़-घी वाला, हाथ से बना, धीमी आँच पर तला।",
       desc:"Gur–ghee thekua, hand-pressed and slow-fried. Chhath vibes all year." },
     { id:"litti-sattu-kit", name:"Litti Sattu Kit", hindi:"लिट्टी सत्तू", art:"kit",
