@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<!--
+  MEET MAA PAGE  →  vanakusum.com/maa
+  Maa's photo: upload it to the repo as  images/maa.jpg
+  (portrait, about 1000 × 1250 px). Until then an illustration shows.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meet Maa — Vana Kusum</title>
+<meta name="description" content="Meet Kusum Devi — the Maa behind Vana Kusum. Her name, her kitchen in Medininagar, and every thekua we send out.">
+<meta name="theme-color" content="#FFF8EE">
+<meta property="og:title" content="Meet Maa — the Kusum in Vana Kusum">
+<meta property="og:description" content="Her name is Kusum. Everything we sell is made by her hands in Medininagar, Jharkhand.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 4c4 6 4 12 0 16-4-4-4-10 0-16Z' fill='%23E2593A'/%3E%3Cpath d='M8 10c5 2 8 7 8 12-6-1-9-6-8-12Z' fill='%23C94B2E'/%3E%3Cpath d='M24 10c-5 2-8 7-8 12 6-1 9-6 8-12Z' fill='%23C94B2E'/%3E%3Ccircle cx='16' cy='25' r='3' fill='%23F5A742'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Mukta:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#4A3B33; --muted:#7d6b5f; --bg:#FFF8EE;
+    --butter:#FFE1A8; --blush:#FFD3C4; --pista:#CFE8C5; --sky:#CDE4F2;
+    --mango:#F5A742; --tomato:#E2593A; --leaf:#7FB069;
+    --display:'Baloo 2',cursive; --body:'Mukta',sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  [hidden]{display:none!important}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+  body{font-family:var(--body);color:var(--ink);background:var(--bg);font-size:17px;line-height:1.65;overflow-x:hidden}
+  svg{display:block}
+  :focus-visible{outline:3px solid var(--mango);outline-offset:3px;border-radius:8px}
+  .wrap{max-width:1040px;margin:0 auto;padding-inline:22px}
+
+  /* header (same as home) */
+  header{position:sticky;top:0;z-index:60;background:rgba(255,248,238,.94);backdrop-filter:blur(8px)}
+  .nav{display:flex;align-items:center;gap:18px;padding-block:12px}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+  .brand-dot{width:44px;height:44px;border-radius:46% 54% 52% 48%/55% 46% 54% 45%;background:var(--butter);
+             display:flex;align-items:center;justify-content:center}
+  .brand-dot svg{width:32px;height:30px}
+  .brand-name{font-family:var(--display);font-weight:800;font-size:1.3rem;line-height:1}
+  .brand-tag{font-size:.72rem;font-weight:600;color:var(--tomato)}
+  .nav-links{margin-left:auto;display:flex;gap:8px;align-items:center}
+  .nav-links a{text-decoration:none;font-family:var(--display);font-weight:600;font-size:.95rem;color:var(--ink);
+               padding:8px 16px;border-radius:999px}
+  .nav-links a:hover{background:var(--butter)}
+  .btn{display:inline-block;background:var(--tomato);color:#fff;padding:13px 28px;border-radius:999px;
+       font-family:var(--display);font-weight:700;font-size:1rem;text-decoration:none;border:none;cursor:pointer;
+       box-shadow:0 5px 0 #C24E33;transition:transform .12s,box-shadow .12s}
+  .btn:hover{transform:translateY(3px);box-shadow:0 2px 0 #C24E33}
+  .nav-links a.btn{color:#fff;padding:9px 18px}
+  .nav-links a.btn:hover{background:var(--tomato)}
+  .btn-ghost{background:#fff;color:var(--ink);border:2.5px solid var(--ink);box-shadow:0 5px 0 var(--ink)}
+  .btn-ghost:hover{box-shadow:0 2px 0 var(--ink)}
+  @media(max-width:760px){.nav-links a:not(.btn){display:none}}
+
+  /* 1 · hello */
+  .hello{position:relative;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:56px;align-items:center;
+         padding-block:64px 40px}
+  .blob{position:absolute;border-radius:46% 54% 52% 48%/55% 46% 54% 45%;z-index:-1}
+  .b1{width:300px;height:300px;background:var(--blush);top:10px;left:-90px}
+  .b2{width:150px;height:150px;background:var(--pista);bottom:0;left:34%}
+  .polaroid{background:#fff;padding:14px 14px 0;border-radius:6px;box-shadow:0 18px 40px rgba(74,59,51,.18);
+            transform:rotate(-3deg);max-width:380px;margin-inline:auto;position:relative}
+  .polaroid .ph{aspect-ratio:4/5;border-radius:3px;overflow:hidden;background:var(--butter)}
+  .polaroid img,.polaroid .ph svg{width:100%;height:100%;object-fit:cover;display:block}
+  .polaroid figcaption{font-family:var(--display);font-weight:700;text-align:center;padding:12px 0 14px;font-size:1.1rem}
+  .polaroid figcaption small{display:block;font-family:var(--body);font-weight:600;font-size:.8rem;color:var(--muted);margin-top:-2px}
+  .tape{position:absolute;top:-14px;left:50%;width:110px;height:30px;background:rgba(245,167,66,.55);
+        transform:translateX(-50%) rotate(4deg);border-radius:3px}
+  .petal{position:absolute;width:56px;right:-24px;bottom:58px;transform:rotate(18deg)}
+  .tag{display:inline-block;background:var(--butter);font-family:var(--display);font-weight:700;
+       padding:7px 18px;border-radius:999px;transform:rotate(-2deg)}
+  h1{font-family:var(--display);font-weight:800;font-size:clamp(2.3rem,5.6vw,3.9rem);line-height:1.05;margin-top:16px}
+  h1 span{color:var(--tomato)}
+  .lede{font-size:1.15rem;color:#6d5c50;margin-top:16px;max-width:44ch}
+  .lede+.lede{margin-top:12px}
+  @media(max-width:820px){
+    .hello{grid-template-columns:1fr;gap:40px;padding-top:40px;text-align:center}
+    .lede{margin-inline:auto}
+    .polaroid{max-width:300px}
+    .b2{display:none}
+  }
+
+  /* 2 · the name */
+  .name{background:var(--ink);color:#FFF8EE;border-radius:34px;padding:56px 28px;margin-top:40px;text-align:center;position:relative;overflow:hidden}
+  .name .kicker{font-family:var(--display);font-weight:700;color:var(--mango);letter-spacing:.06em}
+  .name h2{font-family:var(--display);font-weight:800;font-size:clamp(1.7rem,4vw,2.6rem);line-height:1.15;margin-top:6px}
+  .eq{display:flex;align-items:stretch;justify-content:center;gap:16px;margin-top:36px;flex-wrap:wrap}
+  .word{background:#FFF8EE;color:var(--ink);border-radius:24px;padding:22px 20px 20px;width:230px;box-shadow:0 6px 0 rgba(0,0,0,.25)}
+  .word .dev{font-family:var(--display);font-weight:800;font-size:2.4rem;line-height:1}
+  .word .rom{font-family:var(--display);font-weight:700;color:var(--tomato);font-size:1.05rem;margin-top:4px}
+  .word p{font-size:.9rem;color:#6d5c50;margin-top:10px;line-height:1.5}
+  .word svg{width:58px;height:58px;margin:0 auto 10px}
+  .word.result{background:var(--tomato);color:#fff;transform:rotate(-2deg)}
+  .word.result .rom{color:var(--butter)}
+  .word.result svg{background:var(--butter);border-radius:50%;padding:9px;width:66px;height:66px}
+  .word.result p{color:#FFE9DE}
+  .op{font-family:var(--display);font-weight:800;font-size:2.4rem;color:var(--mango);align-self:center}
+  .name .closing{max-width:52ch;margin:34px auto 0;color:#E9DCCB;font-size:1.05rem}
+  .name .closing b{color:#fff}
+  @media(max-width:820px){.op{width:100%;line-height:1}.word{width:min(300px,100%)}}
+
+  /* 3 · moments */
+  .shead{text-align:center;padding-top:80px}
+  .shead h2{font-family:var(--display);font-weight:800;font-size:clamp(1.7rem,3.8vw,2.5rem)}
+  .shead p{color:var(--muted);margin-top:6px}
+  .moments{position:relative;max-width:760px;margin:40px auto 0;padding-left:44px}
+  .moments::before{content:"";position:absolute;left:15px;top:8px;bottom:8px;width:3px;
+                   background:repeating-linear-gradient(var(--mango) 0 10px,transparent 10px 18px)}
+  .moment{position:relative;background:#fff;border-radius:22px;padding:20px 22px;margin-top:18px}
+  .moment:first-child{margin-top:0}
+  .moment::before{content:"";position:absolute;left:-38px;top:24px;width:20px;height:20px;border-radius:50%;
+                  background:var(--tomato);border:4px solid var(--bg)}
+  .moment .hi{color:var(--tomato);font-weight:700;font-size:.92rem}
+  .moment h3{font-family:var(--display);font-weight:800;font-size:1.2rem;margin-top:2px}
+  .moment p{color:#6d5c50;margin-top:6px;font-size:.96rem}
+  .moment:nth-child(2){background:var(--butter)}
+  .moment:nth-child(4){background:var(--pista)}
+
+  /* 4 · her words */
+  .quote{text-align:center;padding:80px 22px 10px}
+  .quote .q{font-family:var(--display);font-weight:700;font-size:clamp(1.4rem,3.2vw,2.1rem);max-width:24ch;margin:0 auto;line-height:1.25}
+  .quote .q span{color:var(--tomato)}
+  .quote small{display:block;margin-top:14px;color:var(--muted);font-weight:600}
+
+  /* 5 · cta */
+  .cta{background:var(--blush);border-radius:34px;padding:44px 28px;margin-top:70px;text-align:center}
+  .cta h2{font-family:var(--display);font-weight:800;font-size:clamp(1.5rem,3.4vw,2.2rem)}
+  .cta p{color:#6d5c50;margin-top:6px}
+  .cta-row{display:flex;gap:16px;justify-content:center;margin-top:24px;flex-wrap:wrap}
+
+  footer{background:var(--butter);border-radius:34px 34px 0 0;text-align:center;padding:40px 22px 34px;margin-top:70px}
+  footer p{font-size:.88rem;color:#6d5c50;line-height:1.9}
+  footer a{color:var(--ink);font-weight:700;text-decoration:none}
+  .heart{color:var(--tomato)}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <g id="mark">
+    <path d="M-42,-4 Q-34,20 -4,24" fill="none" stroke="#4A3B33" stroke-width="6" stroke-linecap="round"/>
+    <path d="M42,-4 Q34,20 4,24" fill="none" stroke="#4A3B33" stroke-width="6" stroke-linecap="round"/>
+    <g transform="translate(0,6) scale(0.55)"><use href="#flower"/></g>
+  </g>
+  <g id="flower">
+    <g transform="rotate(-26)"><path d="M0,-14 C-12,-30 -14,-52 -2,-66 C0,-50 8,-32 0,-14 Z" fill="#E2593A"/></g>
+    <path d="M0,-16 C-14,-36 -15,-64 0,-82 C15,-64 14,-36 0,-16 Z" fill="#D4532F"/>
+    <g transform="rotate(26)"><path d="M0,-14 C-12,-30 -13,-54 0,-68 C13,-54 12,-30 0,-14 Z" fill="#E2593A"/></g>
+    <circle cx="0" cy="-8" r="5" fill="#F5A742"/>
+  </g>
+</defs></svg>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="/">
+      <span class="brand-dot"><svg viewBox="-50 -50 100 82"><use href="#mark"/></svg></span>
+      <span><span class="brand-name">Vana Kusum</span><br><span class="brand-tag">Ghar jaisa, khushi jaisa</span></span>
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="/#products">Goodies</a>
+      <a href="/#recipes">Recipes</a>
+      <a href="/maa" aria-current="page">Meet Maa</a>
+      <a class="btn" href="/#products">Order now</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- 1 · hello -->
+  <section class="wrap hello">
+    <span class="blob b1" aria-hidden="true"></span>
+    <span class="blob b2" aria-hidden="true"></span>
+
+    <figure class="polaroid">
+      <span class="tape" aria-hidden="true"></span>
+      <div class="ph">
+        <img src="/images/maa.jpg" alt="Kusum Devi — Maa — in her kitchen in Medininagar"
+             onerror="this.hidden=true;this.nextElementSibling.removeAttribute('hidden')">
+        <svg hidden viewBox="0 0 320 400" role="img" aria-label="Illustration of Maa">
+          <rect width="320" height="400" fill="#FFE1A8"/>
+          <circle cx="250" cy="70" r="46" fill="#FFD3C4"/>
+          <!-- palash branch -->
+          <path d="M-10,120 C40,110 70,90 96,60" fill="none" stroke="#4A3B33" stroke-width="5" stroke-linecap="round"/>
+          <g transform="translate(96,62) rotate(30) scale(.45)"><use href="#flower"/></g>
+          <g transform="translate(52,104) rotate(-20) scale(.38)"><use href="#flower"/></g>
+          <!-- saree / body -->
+          <path d="M58,400 C62,318 104,276 160,272 C216,276 258,318 262,400 Z" fill="#E2593A" stroke="#4A3B33" stroke-width="4"/>
+          <path d="M112,290 C140,330 150,370 146,400" fill="none" stroke="#F5A742" stroke-width="9"/>
+          <path d="M112,290 C140,330 150,370 146,400" fill="none" stroke="#4A3B33" stroke-width="2.5" stroke-dasharray="2 8"/>
+          <!-- neck -->
+          <path d="M146,240 h28 v40 h-28 Z" fill="#C98B5E" stroke="#4A3B33" stroke-width="4"/>
+          <!-- pallu over head -->
+          <path d="M84,196 C80,120 120,92 160,92 C200,92 240,120 236,196 C236,240 214,262 214,262 L106,262 C106,262 84,240 84,196 Z" fill="#D4532F" stroke="#4A3B33" stroke-width="4"/>
+          <!-- face -->
+          <ellipse cx="160" cy="196" rx="50" ry="58" fill="#C98B5E" stroke="#4A3B33" stroke-width="4"/>
+          <path d="M112,170 C120,140 140,130 160,130 C180,130 200,140 208,170 C190,152 130,152 112,170 Z" fill="#4A3B33"/>
+          <circle cx="160" cy="160" r="6" fill="#E2593A"/>
+          <path d="M138,194 q8,-7 16,0 M166,194 q8,-7 16,0" fill="none" stroke="#4A3B33" stroke-width="4" stroke-linecap="round"/>
+          <path d="M144,222 Q160,236 176,222" fill="none" stroke="#4A3B33" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="132" cy="212" r="7" fill="#E88A6A" opacity=".7"/><circle cx="188" cy="212" r="7" fill="#E88A6A" opacity=".7"/>
+          <circle cx="110" cy="214" r="5" fill="#F5A742" stroke="#4A3B33" stroke-width="2"/>
+          <circle cx="210" cy="214" r="5" fill="#F5A742" stroke="#4A3B33" stroke-width="2"/>
+        </svg>
+      </div>
+      <figcaption>Kusum Devi<small>Maa · Medininagar, Palamu</small></figcaption>
+      <svg class="petal" viewBox="-50 -90 100 100" aria-hidden="true"><use href="#flower"/></svg>
+    </figure>
+
+    <div>
+      <span class="tag">नमस्ते 🙏</span>
+      <h1>This is Maa.<br>Her name is <span>Kusum.</span></h1>
+      <p class="lede">Every thekua, every laddu and every scoop of sattu you order here is made by her hands, in her kitchen in Medininagar.</p>
+      <p class="lede">Before you taste anything, we wanted you to meet her.</p>
+    </div>
+  </section>
+
+  <!-- 2 · the name -->
+  <section class="wrap">
+    <div class="name">
+      <div class="kicker">THE NAME ON THE PACK</div>
+      <h2>Kusum means flower.<br>So we gave her a forest.</h2>
+      <div class="eq">
+        <div class="word">
+          <svg viewBox="0 0 60 60" aria-hidden="true"><path d="M30 6 12 34h10L10 52h40L38 34h10Z" fill="#7FB069" stroke="#4A3B33" stroke-width="3" stroke-linejoin="round"/><path d="M30 52v6" stroke="#4A3B33" stroke-width="3"/></svg>
+          <div class="dev">वन</div><div class="rom">Vana · forest</div>
+          <p>Jharkhand — literally "the land of forests". Home — and where Maa's kitchen is.</p>
+        </div>
+        <div class="op" aria-hidden="true">+</div>
+        <div class="word">
+          <svg viewBox="-50 -90 100 100" aria-hidden="true"><use href="#flower"/></svg>
+          <div class="dev">कुसुम</div><div class="rom">Kusum · flower</div>
+          <p>A flower — and Maa's own name. Like the palash that turns Palamu orange every spring.</p>
+        </div>
+        <div class="op" aria-hidden="true">=</div>
+        <div class="word result">
+          <svg viewBox="-50 -50 100 82" aria-hidden="true"><use href="#mark"/></svg>
+          <div class="dev">वन कुसुम</div><div class="rom">Vana Kusum</div>
+          <p>The flower of the forest. Her name, on everything she makes.</p>
+        </div>
+      </div>
+      <p class="closing">We didn't want a made-up brand name. <b>When you say "Vana Kusum", you're saying her name.</b></p>
+    </div>
+  </section>
+
+  <!-- 3 · how it happened -->
+  <section class="wrap">
+    <div class="shead"><h2>How her kitchen became a brand</h2><p>Not a business plan. Just a few moments that kept adding up.</p></div>
+    <div class="moments">
+      <div class="moment"><div class="hi">छठ की सुबहें</div><h3>Before sunrise, every Chhath</h3>
+        <p>For decades, the thekua for the ghaat was hers — pressed by hand, fried slow in ghee, packed while the house was still dark.</p></div>
+      <div class="moment"><div class="hi">पड़ोसियों के डिब्बे</div><h3>The dabbas kept coming back empty</h3>
+        <p>Neighbours would return the dabba and somehow it was always time to fill it again.</p></div>
+      <div class="moment"><div class="hi">दिल्ली · बेंगलुरु</div><h3>Then the phone calls started</h3>
+        <p>Relatives in Delhi and Bengaluru, asking for couriers. "थोड़ा और, बस।" It was never just one packet.</p></div>
+      <div class="moment"><div class="hi">वन कुसुम · 2026</div><h3>So we put her name on it</h3>
+        <p>We didn't touch the recipe. We gave it better packing, a way to reach any PIN code in India — and her name on the front.</p></div>
+    </div>
+  </section>
+
+  <!-- 4 · her words -->
+  <section class="quote">
+    <p class="q">"Bahar ka khaana pet bharta hai. <span>Ghar ka khaana man bharta hai."</span></p>
+    <small>— Maa</small>
+  </section>
+
+  <!-- 5 · cta -->
+  <section class="wrap">
+    <div class="cta">
+      <h2>Taste what Maa makes</h2>
+      <p>Made fresh in small batches. Shipped from her kitchen to yours.</p>
+      <div class="cta-row">
+        <a class="btn" href="/#products">See the goodies</a>
+        <a class="btn btn-ghost" href="/">Back to home</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p><strong>Vana Kusum Foods</strong> · Medininagar (Daltonganj), Palamu, Jharkhand — 822101<br>
+  GSTIN 20ASWPD0806B1ZF · <a href="mailto:hello@vanakusum.in">hello@vanakusum.in</a> · <a href="https://instagram.com/vanakusum" rel="noopener">@vanakusum</a><br>
+  Made with <span class="heart">♥</span> by Maa, at Medininagar</p>
+</footer>
+</body>
+</html>
