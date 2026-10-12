@@ -1,23 +1,22 @@
 <!DOCTYPE html>
 <!--
   ============================================================
-  VANA KUSUM — PRE-LAUNCH CHECKLIST (safe to delete this note)
-  1. WHATSAPP_NUMBER in the script (bottom of file) → your real
-     number with country code, e.g. "919876543210"
-  2. FSSAI Lic. No. → appears in the footer: search "1042X"
-  3. Sample reviews in "Little love letters" → replace with real
-     customer messages as soon as you have them
-  4. Email hello@vanakusum.in → create it, or swap to your real one
-  5. Instagram @vanakusum → confirm the handle is yours
-  6. In <head>: replace https://vanakusum.in if your domain differs
-  7. og:image → when you have a good product photo, host it and
-     put its URL there (this is the preview image on WhatsApp shares)
+  VANA KUSUM — HOW THIS SITE IS PUT TOGETHER
+  - products.js      → products, sizes, prices, shipping charge.
+                       Edit prices ONLY there; the payment server
+                       charges exactly what that file says.
+  - api/*.js         → Razorpay payment functions (run on Vercel).
+                       Need RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET
+                       set in Vercel → Settings → Environment Variables.
+  - index.html       → this page (design + copy).
 
-  HOW TO UPDATE AFTER DEPLOY:
-  Edit this file on GitHub → "Commit changes" → Vercel redeploys
-  the live site automatically in about a minute. Prices, products
-  and the WhatsApp number all live in the EASY MAINTENANCE ZONE
-  at the top of the <script> section below.
+  STILL TO FILL IN
+  1. FSSAI Lic. No. → footer: search "1042X"
+  2. Sample reviews in "Little love letters" → real messages
+  3. Email hello@vanakusum.in → create it, or swap to your real one
+  4. og:image → hosted product photo URL for link previews
+
+  Edit on GitHub → "Commit changes" → Vercel redeploys in ~1 minute.
   ============================================================
 -->
 <html lang="en">
@@ -37,7 +36,7 @@
 {"@context":"https://schema.org","@type":"LocalBusiness","name":"Vana Kusum Foods",
 "description":"Homemade thekua, litti sattu and til laddu from Palamu, Jharkhand. Shipped across India.",
 "address":{"@type":"PostalAddress","addressLocality":"Medininagar (Daltonganj)","addressRegion":"Jharkhand","postalCode":"822101","addressCountry":"IN"},
-"url":"https://vanakusum.in","sameAs":["https://instagram.com/vanakusum"]}
+"taxID":"20ASWPD0806B1ZF","url":"https://vanakusum.in","sameAs":["https://instagram.com/vanakusum"]}
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,6 +54,7 @@
     --body:'Mukta',sans-serif;
   }
   *{margin:0;padding:0;box-sizing:border-box}
+  [hidden]{display:none!important}
   html{scroll-behavior:smooth}
   @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
   body{font-family:var(--body);color:var(--ink);background:var(--bg);font-size:17px;line-height:1.65}
@@ -95,6 +95,20 @@
   h1 span{color:var(--tomato)}
   .hero p{color:#7d6b5f;font-size:1.12rem;max-width:46ch;margin:18px auto 0}
   .cta-row{display:flex;gap:16px;justify-content:center;margin-top:30px;flex-wrap:wrap}
+
+  /* purity badges */
+  .pure{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;
+        max-width:620px;margin:26px auto 0}
+  .pure li{background:#fff;border:2.5px solid var(--ink);border-radius:18px;padding:12px 8px 10px;
+           box-shadow:0 4px 0 var(--ink);display:flex;flex-direction:column;align-items:center;gap:4px}
+  .pure li:nth-child(1){transform:rotate(-2deg)}
+  .pure li:nth-child(2){transform:rotate(1.5deg)}
+  .pure li:nth-child(3){transform:rotate(-1deg)}
+  .pure li:nth-child(4){transform:rotate(2deg)}
+  .pure svg{width:44px;height:44px}
+  .pure b{font-family:var(--display);font-weight:800;font-size:.98rem;line-height:1.1}
+  .pure small{font-size:.76rem;font-weight:600;color:var(--tomato);line-height:1.2}
+  @media(max-width:560px){.pure{grid-template-columns:repeat(2,minmax(0,1fr));max-width:340px}}
 
   /* smiling laddu mascot */
   .mascot{width:150px;margin:44px auto 0;animation:bob 3.4s ease-in-out infinite}
@@ -248,8 +262,23 @@
         font-family:var(--body);font-size:.95rem;background:#fff;color:var(--ink);width:100%}
   .d-form input:focus,.d-form textarea:focus{outline:none;border-color:var(--mango)}
   .d-cta{width:100%;margin-top:16px;text-align:center}
-  .paylater{width:100%;margin-top:10px;background:#EFE7DA;border:none;border-radius:999px;padding:13px;
-            font-family:var(--display);font-weight:700;color:#9b8d80;cursor:not-allowed}
+  .d-sums{margin-top:18px;background:#fff;border-radius:18px;padding:14px 16px}
+  .d-row{display:flex;justify-content:space-between;font-size:.95rem;color:#6d5c50}
+  .d-row+.d-row{margin-top:4px}
+  .d-sums .d-sub{margin-top:10px;padding-top:10px;border-top:2px dashed var(--butter)}
+  .d-form .d-cta{margin-top:6px}
+  .d-cta[disabled]{opacity:.6;cursor:wait}
+  .d-err{background:#FFE7E0;color:#A63A1F;border-radius:12px;padding:10px 12px;font-size:.88rem;font-weight:600}
+  .d-form .bad{border-color:var(--tomato)}
+  .d-secure{text-align:center;font-size:.78rem;color:#7d6b5f;font-weight:600}
+  .d-done{text-align:center;padding:30px 4px 10px}
+  .d-done-art{font-size:3.2rem}
+  .d-done h3{font-family:var(--display);font-weight:800;font-size:1.5rem;margin-top:6px}
+  .d-done>p{color:#6d5c50;margin-top:8px}
+  .d-done dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;text-align:left;background:#fff;
+             border-radius:18px;padding:14px 16px;margin:18px 0 6px;font-size:.9rem}
+  .d-done dt{color:#7d6b5f;font-weight:600}
+  .d-done dd{font-weight:700;word-break:break-all}
 
   /* jharkhand map card */
   .mapcard{margin-top:28px;background:var(--sky);border-radius:26px;padding:36px 32px;display:grid;
@@ -329,8 +358,14 @@
     <span class="tag">Seedha Maa ki rasoi se 🌸</span>
     <h1>Snacks that taste<br>like <span>hugs from home.</span></h1>
     <p>Thekua, litti sattu, and til laddu — made fresh by an actual Maa in Palamu, packed with love, delivered anywhere in India.</p>
+    <ul class="pure" aria-label="What we never use">
+      <li><svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="19" fill="#FFE1A8"/><path d="M14 15h16l2 18H12Z" fill="#fff" stroke="#4A3B33" stroke-width="2.4" stroke-linejoin="round"/><path d="M15 15q7-5 14 0" fill="none" stroke="#4A3B33" stroke-width="2.4"/><circle cx="22" cy="22" r="19" fill="none" stroke="#E2593A" stroke-width="3.5"/><path d="M9 35 35 9" stroke="#E2593A" stroke-width="3.5" stroke-linecap="round"/></svg><b>No maida</b><small>सिर्फ़ गेहूँ का आटा</small></li>
+      <li><svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="19" fill="#FFD3C4"/><path d="M22 10c5 7 8 11 8 15a8 8 0 0 1-16 0c0-4 3-8 8-15Z" fill="#F5C169" stroke="#4A3B33" stroke-width="2.4"/><circle cx="22" cy="22" r="19" fill="none" stroke="#E2593A" stroke-width="3.5"/><path d="M9 35 35 9" stroke="#E2593A" stroke-width="3.5" stroke-linecap="round"/></svg><b>No palm oil</b><small>शुद्ध देसी घी</small></li>
+      <li><svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="19" fill="#CFE8C5"/><path d="M18 10h8M19 10v8l-6 12a3 3 0 0 0 3 4h12a3 3 0 0 0 3-4l-6-12v-8" fill="#CDE4F2" stroke="#4A3B33" stroke-width="2.4" stroke-linejoin="round"/><circle cx="22" cy="22" r="19" fill="none" stroke="#E2593A" stroke-width="3.5"/><path d="M9 35 35 9" stroke="#E2593A" stroke-width="3.5" stroke-linecap="round"/></svg><b>No preservatives</b><small>बस ताज़ा, ऑर्डर पर</small></li>
+      <li><svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="19" fill="#CDE4F2"/><rect x="12" y="20" width="10" height="10" rx="1.5" fill="#fff" stroke="#4A3B33" stroke-width="2.4"/><rect x="22" y="20" width="10" height="10" rx="1.5" fill="#fff" stroke="#4A3B33" stroke-width="2.4"/><rect x="17" y="11" width="10" height="9" rx="1.5" fill="#fff" stroke="#4A3B33" stroke-width="2.4"/><circle cx="22" cy="22" r="19" fill="none" stroke="#E2593A" stroke-width="3.5"/><path d="M9 35 35 9" stroke="#E2593A" stroke-width="3.5" stroke-linecap="round"/></svg><b>No refined sugar</b><small>सिर्फ़ असली गुड़</small></li>
+    </ul>
     <div class="cta-row">
-      <a class="btn" href="#products">Order on WhatsApp</a>
+      <a class="btn" href="#products">Order now</a>
       <a class="btn btn-leaf" href="#story">Meet Maa</a>
     </div>
     <div class="heroart" aria-hidden="true">
@@ -371,7 +406,7 @@
   </div>
 
   <div class="wrap">
-    <div class="shead" id="products"><h2>Pick your happy</h2><p>Tap +/− and order — WhatsApp opens with your order ready to send.</p></div>
+    <div class="shead" id="products"><h2>Pick your happy</h2><p>Pick a size, add to your dabba, and pay securely online.</p></div>
     <div class="grid" id="productGrid"></div>
 
     <div class="promises">
@@ -474,9 +509,9 @@
   <div class="wrap">
     <div class="shead"><h2>Ordering is 3 taps easy</h2></div>
     <div class="steps">
-      <div class="step"><p>Pick your goodies and tap <strong>Order</strong> — WhatsApp opens with your order already written. Just hit send.</p></div>
-      <div class="step"><p>We confirm your address and total (with shipping) and share our UPI. Online payment coming soon!</p></div>
-      <div class="step"><p>Maa makes your batch fresh, we pack it snug, and send you the courier tracking on WhatsApp.</p></div>
+      <div class="step"><p>Pick your goodies and sizes, and tap <strong>Add to order</strong>.</p></div>
+      <div class="step"><p>Add your address and pay securely with UPI, card or netbanking. Shipping is shown before you pay.</p></div>
+      <div class="step"><p>Maa makes your batch fresh, we pack it snug, and send you the courier tracking by SMS.</p></div>
     </div>
   </div>
 
@@ -491,13 +526,14 @@
     <div class="giftband">
       <div><h2>Chhath? Shaadi? Office Diwali? 🎁</h2>
         <p>Gift boxes and bulk orders with special pricing and extra-cute packing. Tell us the occasion and headcount.</p></div>
-      <a class="btn" id="giftBtn" href="#">Plan it on WhatsApp</a>
+      <a class="btn" id="giftBtn" href="mailto:hello@vanakusum.in?subject=Gift%20%2F%20bulk%20order">Write to us</a>
     </div>
 
     <div class="shead" id="faq"><h2>Quick questions</h2></div>
     <div style="max-width:720px;margin:36px auto 0">
       <details><summary>How long does everything stay fresh?</summary><p>Thekua and auri: ~45 days. Til laddu: ~30 days. Sattu: 6 months. Best-before is printed on every pack — keep it cool and dry.</p></details>
-      <details><summary>How do I pay?</summary><p>We confirm your total on WhatsApp (with shipping) and share our UPI ID. Card/online payment is coming soon.</p></details>
+      <details><summary>How do I pay?</summary><p>Online at checkout — UPI, debit/credit card, netbanking or wallets, processed securely by Razorpay. You see the full total, including shipping, before you pay.</p></details>
+      <details><summary>How much is shipping?</summary><p>A flat <span class="shipFlat">₹79</span> per order anywhere in India — free when your order is <span class="shipFree">₹799</span> or more.</p></details>
       <details><summary>Do you deliver to my city?</summary><p>Anywhere in India by courier — metros in 3–5 days, elsewhere 5–7. Around Medininagar it's same-day or next-day.</p></details>
       <details><summary>Really homemade? Really?</summary><p>Every single batch, by Maa, in our FSSAI-registered home kitchen. That's the whole point — pinky promise.</p></details>
     </div>
@@ -507,7 +543,7 @@
 <footer>
   <svg class="foot-map" viewBox="0 0 300 220" aria-hidden="true"><use href="#jhmap" fill="#FFFDF4"/></svg>
   <p><strong>Vana Kusum Foods</strong> · Medininagar (Daltonganj), Palamu, Jharkhand — 822101<br>
-  FSSAI Lic. No. 1042XXXXXXXXXX · <a href="mailto:hello@vanakusum.in">hello@vanakusum.in</a> · <a href="https://instagram.com/vanakusum" rel="noopener">@vanakusum</a><br>
+  FSSAI Lic. No. 1042XXXXXXXXXX · GSTIN 20ASWPD0806B1ZF · <a href="mailto:hello@vanakusum.in">hello@vanakusum.in</a> · <a href="https://instagram.com/vanakusum" rel="noopener">@vanakusum</a><br>
   Made with <span class="heart">♥</span> at Medininagar (Daltonganj)</p>
 </footer>
 
@@ -519,51 +555,49 @@
 <aside class="drawer" id="drawer" hidden aria-label="Order summary">
   <div class="d-head"><h3>Your order 🧺</h3><button type="button" class="x" onclick="closeCart()" aria-label="Close">×</button></div>
   <div id="dItems"></div>
-  <div class="d-sub"><span>Subtotal</span><b>₹<span id="dTotal">0</span></b></div>
-  <p class="d-note">Shipping is confirmed on WhatsApp based on your PIN code.</p>
-  <div class="d-form">
-    <input id="fName" placeholder="Your name">
-    <input id="fPhone" placeholder="Phone number" inputmode="tel">
-    <textarea id="fAddr" placeholder="Delivery address" rows="2"></textarea>
-    <input id="fPin" placeholder="PIN code" inputmode="numeric">
+  <div class="d-sums">
+    <div class="d-row"><span>Items</span><span>₹<span id="dTotal">0</span></span></div>
+    <div class="d-row"><span>Shipping</span><span id="dShip">₹0</span></div>
+    <div class="d-sub"><span>Total</span><b>₹<span id="dGrand">0</span></b></div>
+    <p class="d-note" id="dShipHint"></p>
+    <p class="d-note">Prices inclusive of GST.</p>
   </div>
-  <button type="button" class="btn d-cta" onclick="checkoutWhatsApp()">Place order on WhatsApp</button>
-  <button type="button" class="paylater" disabled>Pay online — coming soon (Razorpay)</button>
+  <form class="d-form" id="checkoutForm" novalidate onsubmit="event.preventDefault();payNow()">
+    <input id="fName" name="name" placeholder="Your name" autocomplete="name" required>
+    <input id="fPhone" name="phone" placeholder="Mobile number (10 digits)" inputmode="tel" autocomplete="tel-national" maxlength="20" required>
+    <input id="fEmail" name="email" type="email" placeholder="Email (optional, for receipt)" autocomplete="email">
+    <textarea id="fAddr" name="address" placeholder="House no., street, area, city" rows="3" maxlength="250" autocomplete="street-address" required></textarea>
+    <input id="fPin" name="pin" placeholder="PIN code" inputmode="numeric" maxlength="6" autocomplete="postal-code" required>
+    <p class="d-err" id="dErr" role="alert" hidden></p>
+    <button type="submit" class="btn d-cta" id="payBtn">Pay ₹<span id="payAmt">0</span> securely</button>
+    <p class="d-secure">🔒 UPI · Cards · Netbanking — secured by Razorpay</p>
+  </form>
 </aside>
+<template id="successTpl">
+  <div class="d-done">
+    <div class="d-done-art" aria-hidden="true">🌸</div>
+    <h3>Order placed! Dhanyawad 🙏</h3>
+    <p>Maa will start on your batch fresh. We'll send courier tracking by SMS once it ships.</p>
+    <dl>
+      <dt>Order</dt><dd data-f="receipt"></dd>
+      <dt>Payment ID</dt><dd data-f="pid"></dd>
+      <dt>Paid</dt><dd data-f="amt"></dd>
+    </dl>
+    <p class="d-note">Keep this Payment ID for any questions about your order.</p>
+    <button type="button" class="btn d-cta" onclick="closeCart()">Back to the shop</button>
+  </div>
+</template>
 
-<a class="fab" id="fabWa" href="#" aria-label="Chat on WhatsApp">
+<a class="fab" id="fabWa" href="#" aria-label="Chat with us on WhatsApp" target="_blank" rel="noopener" hidden>
   <svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3Z" fill="none" stroke="#FFF8EE" stroke-width="1.8"/><path d="M9 9c0 4 2 6 6 6l1-2-2.5-1-1 .8c-1-.6-1.5-1.2-2-2.3l.8-1L10 7Z" fill="#FFF8EE"/></svg>
 </a>
 
+<script src="/products.js"></script>
 <script>
-/* ============ EASY MAINTENANCE ZONE ============ */
-const WHATSAPP_NUMBER = "91XXXXXXXXXX";
-const PRODUCTS = [
-  { name:"Thekua", hindi:"ठेकुआ", art:"thekua",
-    sizes:[{w:"250 g",price:149},{w:"500 g",price:279}],
-    hdesc:"गुड़-घी वाला, हाथ से बना, धीमी आँच पर तला।",
-    desc:"Gur–ghee thekua, hand-pressed and slow-fried. Chhath vibes all year." },
-  { name:"Litti Sattu Kit", hindi:"लिट्टी सत्तू", art:"kit",
-    sizes:[{w:"400 g",price:199},{w:"800 g",price:369}],
-    hdesc:"भुना सत्तू मसाला + माँ का नुस्खा कार्ड।",
-    desc:"Sattu masala + Maa's recipe card. Litti party at home!" },
-  { name:"Pure Sattu", hindi:"शुद्ध सत्तू", art:"sattu",
-    sizes:[{w:"500 g",price:159},{w:"1 kg",price:299}],
-    hdesc:"पत्थर-पिसा भुना चना — शरबत, लिट्टी, पराठा।",
-    desc:"Stone-ground roasted chana. Desi protein, zero drama." },
-  { name:"Til Laddu", hindi:"तिल लड्डू", art:"laddu",
-    sizes:[{w:"250 g",price:169},{w:"500 g",price:319}],
-    hdesc:"तिल-गुड़ के गरम-गरम हाथ से बंधे लड्डू।",
-    desc:"Sesame + gur, rolled warm by hand. Winter's best hug." },
-  { name:"Til-auri", hindi:"तिल औरी", art:"auri",
-    sizes:[{w:"200 g",price:139},{w:"400 g",price:259}],
-    hdesc:"धूप में सुखाई कुरकुरी तिल-गुड़ औरी।",
-    desc:"Crispy sesame-jaggery discs. Warning: disappear fast." },
-  { name:"Tisi-auri", hindi:"तिसी औरी", art:"auri",
-    sizes:[{w:"200 g",price:139},{w:"400 g",price:259}],
-    hdesc:"अलसी-गुड़ की औरी — दादी का सुपरफूड।",
-    desc:"Flaxseed auri — grandma's superfood before it was cool." },
-];
+/* Products, prices and shipping live in products.js */
+const PRODUCTS = CATALOG.products;
+const SHIP = CATALOG.shipping;
+const SUPPORT_WA = (CATALOG.supportWhatsApp||"").replace(/\D/g,"");
 
 function art(type){
   const I='#4A3B33';
@@ -626,7 +660,7 @@ function addToOrder(i){
 }
 function cartTotal(){return cart.reduce((t,c)=>t+PRODUCTS[c.pi].sizes[c.si].price*c.qty,0);}
 function cartCount(){return cart.reduce((t,c)=>t+c.qty,0);}
-function cartQty(k,d){cart[k].qty+=d;if(cart[k].qty<1)cart.splice(k,1);updateCartUI();}
+function cartQty(k,d){cart[k].qty=Math.min(40,cart[k].qty+d);if(cart[k].qty<1)cart.splice(k,1);updateCartUI();}
 function removeItem(k){cart.splice(k,1);updateCartUI();}
 
 function updateCartUI(){
@@ -651,46 +685,111 @@ function updateCartUI(){
       </div>`;
     }).join("");
   }
-  document.getElementById("dTotal").textContent=cartTotal();
+  const t=cartTotal(), sh=shippingFor(t), empty=cart.length===0;
+  $("dTotal").textContent=t;
+  $("dShip").textContent=sh?"₹"+sh:"Free";
+  $("dGrand").textContent=t+sh;
+  const pa=$("payAmt"); if(pa) pa.textContent=t+sh;
+  $("dShipHint").textContent=(!empty&&sh)?`Add ₹${SHIP.freeAbove-t} more for free shipping.`:"";
+  document.querySelector(".d-sums").hidden=empty;
+  $("checkoutForm").hidden=empty;
 }
-function openCart(){document.getElementById("overlay").hidden=false;document.getElementById("drawer").hidden=false;document.body.style.overflow="hidden";}
+function openCart(){if(document.querySelector(".d-done")&&cart.length)resetDrawer();document.getElementById("overlay").hidden=false;document.getElementById("drawer").hidden=false;document.body.style.overflow="hidden";}
 function closeCart(){document.getElementById("overlay").hidden=true;document.getElementById("drawer").hidden=true;document.body.style.overflow="";}
 document.addEventListener("keydown",e=>{if(e.key==="Escape")closeCart();});
 
-/* ---------- checkout via WhatsApp ---------- */
-function checkoutWhatsApp(){
-  if(cart.length===0){openCart();return;}
-  const lines=cart.map((c,k)=>{
-    const p=PRODUCTS[c.pi], s=p.sizes[c.si];
-    return `${k+1}) ${c.qty} × ${p.name} (${s.w}) — ₹${s.price*c.qty}`;
-  }).join("\n");
-  const name=document.getElementById("fName").value.trim();
-  const phone=document.getElementById("fPhone").value.trim();
-  const addr=document.getElementById("fAddr").value.trim();
-  const pin=document.getElementById("fPin").value.trim();
-  let details="";
-  if(name||phone||addr||pin){
-    details=`\n\nDelivery details:\n${name?`Name: ${name}\n`:""}${phone?`Phone: ${phone}\n`:""}${addr?`Address: ${addr}\n`:""}${pin?`PIN: ${pin}\n`:""}`.trimEnd();
-  }
-  const msg=`Namaste Vana Kusum! Mera order:\n\n${lines}\n\nSubtotal: ₹${cartTotal()}${details}\n\nPlease confirm total with shipping. Dhanyawad!`;
-  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,"_blank","noopener");
+/* ---------- checkout: Razorpay ---------- */
+function shippingFor(t){return t>=SHIP.freeAbove?0:SHIP.flat;}
+const $=id=>document.getElementById(id);
+
+function showErr(msg,field){
+  const e=$("dErr"); e.textContent=msg; e.hidden=!msg;
+  document.querySelectorAll(".d-form .bad").forEach(x=>x.classList.remove("bad"));
+  if(field){$(field).classList.add("bad");$(field).focus();}
+}
+function readCustomer(){
+  const c={name:$("fName").value.trim(),phone:$("fPhone").value.replace(/\D/g,"").replace(/^(91|0)(?=\d{10}$)/,""),
+           email:$("fEmail").value.trim(),address:$("fAddr").value.trim(),pin:$("fPin").value.replace(/\D/g,"")};
+  if(c.name.length<2) return showErr("Please enter your name.","fName");
+  if(!/^[6-9]\d{9}$/.test(c.phone)) return showErr("Please enter a valid 10-digit mobile number.","fPhone");
+  if(c.email&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(c.email)) return showErr("Please check your email address.","fEmail");
+  if(c.address.length<10) return showErr("Please enter your full delivery address.","fAddr");
+  if(!/^[1-9]\d{5}$/.test(c.pin)) return showErr("Please enter a valid 6-digit PIN code.","fPin");
+  showErr("");
+  try{localStorage.setItem("vk_customer",JSON.stringify(c));}catch(e){}
+  return c;
+}
+function restoreCustomer(){
+  try{const c=JSON.parse(localStorage.getItem("vk_customer")||"null");if(!c)return;
+    $("fName").value=c.name||"";$("fPhone").value=c.phone||"";$("fEmail").value=c.email||"";
+    $("fAddr").value=c.address||"";$("fPin").value=c.pin||"";}catch(e){}
 }
 
-/* ---------- RAZORPAY (later) ----------
-   The order summary above already collects everything a payment needs:
-   items, amounts, total, and customer details. When you're ready:
-   1. Create a Razorpay account and get your key_id.
-   2. Add a tiny serverless function (free on Netlify/Vercel) that creates
-      a Razorpay Order for cartTotal() and returns order_id.
-   3. Load https://checkout.razorpay.com/v1/checkout.js and open Razorpay
-      Checkout with {key, order_id, prefill:{name, contact}}.
-   4. Replace the disabled .paylater button with that call — nothing else
-      on this page needs to change. */
+let rzpLoading=null;
+function loadRazorpay(){
+  if(window.Razorpay) return Promise.resolve();
+  if(rzpLoading) return rzpLoading;
+  rzpLoading=new Promise((ok,fail)=>{
+    const sc=document.createElement("script");sc.src="https://checkout.razorpay.com/v1/checkout.js";
+    sc.onload=ok;sc.onerror=()=>{rzpLoading=null;fail(new Error("Couldn't load the payment window. Check your internet and try again."));};
+    document.head.appendChild(sc);
+  });
+  return rzpLoading;
+}
+async function postJSON(url,data){
+  let r;
+  try{r=await fetch(url,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});}
+  catch(e){throw new Error("No internet connection. Please try again.");}
+  const j=await r.json().catch(()=>({}));
+  if(!r.ok) throw new Error(j.error||"Something went wrong. Please try again.");
+  return j;
+}
+function setPaying(on){const b=$("payBtn");b.disabled=on;
+  b.innerHTML=on?"Opening payment…":`Pay ₹<span id="payAmt">${cartTotal()+shippingFor(cartTotal())}</span> securely`;}
 
-const wa=`https://wa.me/${WHATSAPP_NUMBER}`;
-document.getElementById("fabWa").href=wa;
-const giftBtn=document.getElementById("giftBtn");
-if(giftBtn) giftBtn.href=`${wa}?text=${encodeURIComponent("Namaste Vana Kusum! Gift/bulk order plan karna hai. Occasion: ")}`;
+async function payNow(){
+  if(cart.length===0){showErr("Your dabba is empty — add some goodies first.");return;}
+  const customer=readCustomer(); if(!customer) return;
+  setPaying(true);
+  try{
+    const items=cart.map(c=>({id:PRODUCTS[c.pi].id,w:PRODUCTS[c.pi].sizes[c.si].w,qty:c.qty}));
+    const [order]=await Promise.all([postJSON("/api/create-order",{items,customer}),loadRazorpay()]);
+    const rzp=new Razorpay({
+      key:order.keyId, order_id:order.orderId, amount:order.amount, currency:"INR",
+      name:"Vana Kusum", description:`Order ${order.receipt}`,
+      prefill:{name:customer.name,contact:"+91"+customer.phone,email:customer.email||undefined},
+      notes:{receipt:order.receipt}, theme:{color:"#E2593A"},
+      handler:async(resp)=>{
+        try{
+          await postJSON("/api/verify-payment",resp);
+          showSuccess({receipt:order.receipt,pid:resp.razorpay_payment_id,amt:"₹"+order.grandTotal});
+        }catch(e){showErr(e.message+" Payment ID: "+resp.razorpay_payment_id);setPaying(false);}
+      },
+      modal:{ondismiss:()=>setPaying(false)}
+    });
+    rzp.on("payment.failed",r=>{showErr("Payment failed: "+((r.error&&r.error.description)||"please try again")+".");setPaying(false);});
+    rzp.open();
+  }catch(e){showErr(e.message);setPaying(false);}
+}
+function showSuccess(d){
+  cart=[];updateCartUI();
+  const frag=$("successTpl").content.cloneNode(true);
+  frag.querySelector('[data-f="receipt"]').textContent=d.receipt;
+  frag.querySelector('[data-f="pid"]').textContent=d.pid;
+  frag.querySelector('[data-f="amt"]').textContent=d.amt;
+  const dr=$("drawer");[...dr.children].forEach(el=>{if(!el.classList.contains("d-head"))el.hidden=true;});
+  dr.appendChild(frag);
+}
+function resetDrawer(){
+  const dr=$("drawer");dr.querySelectorAll(".d-done").forEach(x=>x.remove());
+  [...dr.children].forEach(el=>el.hidden=false);
+}
+
+/* ---------- small wiring ---------- */
+document.querySelectorAll(".shipFlat").forEach(e=>e.textContent="₹"+SHIP.flat);
+document.querySelectorAll(".shipFree").forEach(e=>e.textContent="₹"+SHIP.freeAbove);
+if(SUPPORT_WA){const f=$("fabWa");f.href=`https://wa.me/${SUPPORT_WA}`;f.hidden=false;}
+restoreCustomer();
 updateCartUI();
 </script>
 </body>
