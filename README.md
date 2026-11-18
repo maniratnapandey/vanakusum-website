@@ -6,6 +6,7 @@ Static site on Vercel with Razorpay checkout.
 |---|---|
 | `products.js` | Products, sizes, prices (₹, incl. GST) and the shipping rule. **Edit prices here only.** |
 | `index.html` | The page: design and copy. |
+| `pixel.js` | Meta Pixel. Put the Pixel ID at the top; leave it empty to switch tracking off. |
 | `api/create-order.js` | Prices the cart from `products.js` and creates a Razorpay order. |
 | `api/verify-payment.js` | Checks Razorpay's signature before showing "Order placed". |
 

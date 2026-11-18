@@ -319,6 +319,7 @@
   footer a{color:var(--ink);font-weight:700;text-decoration:none}
   .heart{color:var(--tomato)}
 </style>
+<script src="/pixel.js"></script>
 </head>
 <body>
 
@@ -626,7 +627,7 @@ function renderGrid(){
   PRODUCTS.forEach((p,i)=>{
     const s=p.sizes[selSize[i]];
     const el=document.createElement("article");
-    el.className="card";
+    el.className="card"; el.dataset.pi=i;
     el.innerHTML=`
       <div class="cname">${p.name}</div>
       <div class="chindi">${p.hindi}</div>
@@ -647,11 +648,32 @@ function renderGrid(){
       </div>`;
     grid.appendChild(el);
   });
+  if(window.__watchCards) __watchCards();
 }
 function pickSize(i,si){selSize[i]=si;renderGrid();}
 function changeQty(i,d){qtys[i]=Math.min(20,Math.max(1,qtys[i]+d));
   document.querySelectorAll(`[data-qty="${i}"]`).forEach(s=>s.textContent=qtys[i]);}
 renderGrid();
+
+/* ---------- Meta Pixel events (no-ops if pixel.js has no ID) ---------- */
+function pixelItem(pi,si,qty){const p=PRODUCTS[pi],s=p.sizes[si];
+  return {id:p.id+"-"+s.w.replace(/\s+/g,""),quantity:qty,item_price:s.price};}
+function pixelCart(){return {content_type:"product",currency:"INR",
+  contents:cart.map(c=>pixelItem(c.pi,c.si,c.qty)),content_ids:cart.map(c=>pixelItem(c.pi,c.si,1).id),
+  num_items:cartCount(),value:cartTotal()};}
+(function(){
+  if(!("IntersectionObserver" in window)) return;
+  const seen=new Set();
+  const io=new IntersectionObserver(es=>es.forEach(e=>{
+    if(!e.isIntersecting) return;
+    const i=+e.target.dataset.pi; if(seen.has(i)) return; seen.add(i); io.unobserve(e.target);
+    const p=PRODUCTS[i], s=p.sizes[selSize[i]];
+    vkTrack("ViewContent",{content_type:"product",content_name:p.name,content_ids:[pixelItem(i,selSize[i],1).id],
+      contents:[pixelItem(i,selSize[i],1)],currency:"INR",value:s.price});
+  }),{threshold:.6});
+  window.__watchCards=()=>document.querySelectorAll("[data-pi]").forEach(el=>{if(!seen.has(+el.dataset.pi))io.observe(el);});
+  __watchCards();
+})();
 
 /* ---------- cart ---------- */
 function addToOrder(i){
@@ -659,6 +681,9 @@ function addToOrder(i){
   const found=cart.find(c=>c.pi===i&&c.si===si);
   if(found){found.qty=Math.min(40,found.qty+qtys[i]);}else{cart.push({pi:i,si,qty:qtys[i]});}
   updateCartUI();
+  const it=pixelItem(i,si,qtys[i]);
+  vkTrack("AddToCart",{content_type:"product",content_name:PRODUCTS[i].name,content_ids:[it.id],contents:[it],
+    currency:"INR",value:it.item_price*it.quantity});
   openCart();
 }
 function cartTotal(){return cart.reduce((t,c)=>t+PRODUCTS[c.pi].sizes[c.si].price*c.qty,0);}
@@ -753,6 +778,8 @@ function setPaying(on){const b=$("payBtn");b.disabled=on;
 async function payNow(){
   if(cart.length===0){showErr("Your dabba is empty — add some goodies first.");return;}
   const customer=readCustomer(); if(!customer) return;
+  vkTrack("InitiateCheckout",pixelCart());
+  const purchaseInfo=pixelCart();
   setPaying(true);
   try{
     const items=cart.map(c=>({id:PRODUCTS[c.pi].id,w:PRODUCTS[c.pi].sizes[c.si].w,qty:c.qty}));
@@ -765,6 +792,7 @@ async function payNow(){
       handler:async(resp)=>{
         try{
           await postJSON("/api/verify-payment",resp);
+          vkTrack("Purchase",{...purchaseInfo,value:order.grandTotal},resp.razorpay_payment_id);
           showSuccess({receipt:order.receipt,pid:resp.razorpay_payment_id,amt:"₹"+order.grandTotal});
         }catch(e){showErr(e.message+" Payment ID: "+resp.razorpay_payment_id);setPaying(false);}
       },
@@ -772,6 +800,7 @@ async function payNow(){
     });
     rzp.on("payment.failed",r=>{showErr("Payment failed: "+((r.error&&r.error.description)||"please try again")+".");setPaying(false);});
     rzp.open();
+    vkTrack("AddPaymentInfo",{currency:"INR",value:order.grandTotal,content_ids:purchaseInfo.content_ids});
   }catch(e){showErr(e.message);setPaying(false);}
 }
 function showSuccess(d){
