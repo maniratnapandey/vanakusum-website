@@ -5,7 +5,7 @@
    your pixel → the number under its name). Leave it "" to switch
    tracking off everywhere.
    ================================================================ */
-const META_PIXEL_ID = "";
+const META_PIXEL_ID = "29249957021314100";
 
 (function () {
   // vkTrack(event, params, eventId): safe to call even when the pixel is off.
