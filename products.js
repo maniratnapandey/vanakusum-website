@@ -14,9 +14,10 @@ const CATALOG = {
   // Optional support chat number (country code, no +). Leave "" to hide the chat button.
   supportWhatsApp: "",
 
+  // comingSoon:true → shown on the site but can't be ordered. Delete it to start selling.
   products: [
     { id:"thekua", name:"Thekua", hindi:"ठेकुआ", art:"thekua",
-      sizes:[{w:"400 g",price:399},{w:"800 g",price:749}],
+      sizes:[{w:"400 g",price:399}],
       hdesc:"गुड़-घी वाला, हाथ से बना, धीमी आँच पर तला।",
       desc:"Gur–ghee thekua, hand-pressed and slow-fried. Chhath vibes all year." },
     { id:"litti-sattu-kit", name:"Litti Sattu Kit", hindi:"लिट्टी सत्तू", art:"kit",
@@ -27,15 +28,15 @@ const CATALOG = {
       sizes:[{w:"400 g",price:129},{w:"800 g",price:249}],
       hdesc:"पत्थर-पिसा भुना चना — शरबत, लिट्टी, पराठा।",
       desc:"Stone-ground roasted chana. Desi protein, zero drama." },
-    { id:"til-laddu", name:"Til Laddu", hindi:"तिल लड्डू", art:"laddu",
+    { id:"til-laddu", comingSoon:true, name:"Til Laddu", hindi:"तिल लड्डू", art:"laddu",
       sizes:[{w:"400 g",price:269},{w:"800 g",price:509}],
       hdesc:"तिल-गुड़ के गरम-गरम हाथ से बंधे लड्डू।",
       desc:"Sesame + gur, rolled warm by hand. Winter's best hug." },
-    { id:"til-auri", name:"Til-auri", hindi:"तिल औरी", art:"auri",
+    { id:"til-auri", comingSoon:true, name:"Til-auri", hindi:"तिल औरी", art:"auri",
       sizes:[{w:"400 g",price:259},{w:"800 g",price:499}],
       hdesc:"धूप में सुखाई कुरकुरी तिल-गुड़ औरी।",
       desc:"Crispy sesame-jaggery discs. Warning: disappear fast." },
-    { id:"tisi-auri", name:"Tisi-auri", hindi:"तिसी औरी", art:"auri",
+    { id:"tisi-auri", comingSoon:true, name:"Tisi-auri", hindi:"तिसी औरी", art:"auri",
       sizes:[{w:"400 g",price:259},{w:"800 g",price:499}],
       hdesc:"अलसी-गुड़ की औरी — दादी का सुपरफूड।",
       desc:"Flaxseed auri — grandma's superfood before it was cool." },

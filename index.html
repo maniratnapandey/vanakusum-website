@@ -135,6 +135,9 @@
   .price{font-family:var(--display);font-weight:800;font-size:1.25rem}
   .wt{font-size:.82rem;color:#7d6b5f;font-weight:600}
   .orow{display:flex;gap:10px;margin-top:12px}
+  .card .orow{margin-top:auto;padding-top:12px}
+  .card.soon .art{opacity:.55;filter:grayscale(.35)}
+  .card.soon .order-btn[disabled]{background:rgba(74,59,51,.18);color:var(--ink);cursor:not-allowed}
   .qty{display:inline-flex;align-items:center;background:#fff;border-radius:999px}
   .qty button{background:none;border:none;font-size:1.2rem;width:34px;height:40px;cursor:pointer;font-weight:800;color:var(--ink)}
   .qty span{min-width:20px;text-align:center;font-weight:800}
@@ -627,13 +630,9 @@ function renderGrid(){
   PRODUCTS.forEach((p,i)=>{
     const s=p.sizes[selSize[i]];
     const el=document.createElement("article");
-    el.className="card"; el.dataset.pi=i;
-    el.innerHTML=`
-      <div class="cname">${p.name}</div>
-      <div class="chindi">${p.hindi}</div>
-      <div class="art" aria-hidden="true">${art(p.art)}</div>
-      <p class="hdesc-line">${p.hdesc}</p>
-      <p class="desc">${p.desc}</p>
+    el.className="card"+(p.comingSoon?" soon":""); if(!p.comingSoon) el.dataset.pi=i;
+    const buy=p.comingSoon?`
+      <div class="orow"><button type="button" class="order-btn" disabled>Coming soon</button></div>`:`
       <div class="sizes" role="group" aria-label="Size for ${p.name}">
         ${p.sizes.map((sz,si)=>`<button type="button" class="size ${si===selSize[i]?'on':''}" onclick="pickSize(${i},${si})">${sz.w}</button>`).join("")}
       </div>
@@ -646,6 +645,12 @@ function renderGrid(){
         </span>
         <button type="button" class="order-btn" onclick="addToOrder(${i})">Add to order</button>
       </div>`;
+    el.innerHTML=`
+      <div class="cname">${p.name}</div>
+      <div class="chindi">${p.hindi}</div>
+      <div class="art" aria-hidden="true">${art(p.art)}</div>
+      <p class="hdesc-line">${p.hdesc}</p>
+      <p class="desc">${p.desc}</p>${buy}`;
     grid.appendChild(el);
   });
   if(window.__watchCards) __watchCards();

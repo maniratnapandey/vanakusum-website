@@ -13,7 +13,7 @@ function priceCart(items) {
     const p = CATALOG.products.find((x) => x.id === it.id);
     const s = p && p.sizes.find((x) => x.w === it.w);
     const qty = Number(it.qty);
-    if (!p || !s) throw new HttpError(400, "One of the items is no longer available. Please refresh the page.");
+    if (!p || !s || p.comingSoon) throw new HttpError(400, "One of the items is no longer available. Please refresh the page.");
     if (!Number.isInteger(qty) || qty < 1 || qty > MAX_QTY) throw new HttpError(400, "Invalid quantity.");
     return { id: p.id, name: p.name, w: s.w, price: s.price, qty, total: s.price * qty };
   });
