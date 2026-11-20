@@ -68,8 +68,8 @@ function buildNotes(customer, priced) {
 }
 
 function keys() {
-  const id = process.env.RAZORPAY_KEY_ID;
-  const secret = process.env.RAZORPAY_KEY_SECRET;
+  const id = (process.env.RAZORPAY_KEY_ID || "").trim();
+  const secret = (process.env.RAZORPAY_KEY_SECRET || "").trim();
   if (!id || !secret) throw new HttpError(503, "Online payment isn't set up yet. Please try again later.");
   return { id, secret };
 }
