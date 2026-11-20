@@ -3,6 +3,8 @@
 const { keys, verifySignature, HttpError, handler } = require("./_lib");
 
 module.exports = handler(async (body) => {
+  const missing = ["razorpay_order_id", "razorpay_payment_id", "razorpay_signature"].filter((k) => !body[k]);
+  if (missing.length) throw new HttpError(400, `Missing payment details: ${missing.join(", ")}.`);
   const { secret } = keys();
   const ok = verifySignature(body.razorpay_order_id, body.razorpay_payment_id, body.razorpay_signature, secret);
   if (!ok) throw new HttpError(400, "We couldn't verify this payment. If money was deducted, it will be refunded automatically — or contact us.");
