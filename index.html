@@ -275,14 +275,6 @@
   .d-err{background:#FFE7E0;color:#A63A1F;border-radius:12px;padding:10px 12px;font-size:.88rem;font-weight:600}
   .d-form .bad{border-color:var(--tomato)}
   .d-secure{text-align:center;font-size:.78rem;color:#7d6b5f;font-weight:600}
-  .d-done{text-align:center;padding:30px 4px 10px}
-  .d-done-art{font-size:3.2rem}
-  .d-done h3{font-family:var(--display);font-weight:800;font-size:1.5rem;margin-top:6px}
-  .d-done>p{color:#6d5c50;margin-top:8px}
-  .d-done dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;text-align:left;background:#fff;
-             border-radius:18px;padding:14px 16px;margin:18px 0 6px;font-size:.9rem}
-  .d-done dt{color:#7d6b5f;font-weight:600}
-  .d-done dd{font-weight:700;word-break:break-all}
 
   /* jharkhand map card */
   .mapcard{margin-top:28px;background:var(--sky);border-radius:26px;padding:36px 32px;display:grid;
@@ -321,6 +313,52 @@
   footer p{font-size:.88rem;color:#6d5c50;line-height:1.9}
   footer a{color:var(--ink);font-weight:700;text-decoration:none}
   .heart{color:var(--tomato)}
+  /* ---------- order confirmation ---------- */
+  .oc{border:none;padding:0;background:transparent;width:min(560px,calc(100% - 24px));max-width:none;margin:auto;max-height:calc(100vh - 24px)}
+  .oc::backdrop{background:rgba(74,59,51,.6)}
+  .oc-sheet{background:var(--bg);border-radius:30px;overflow:auto;max-height:calc(100vh - 24px)}
+  .oc-top{background:var(--leaf);color:#fff;text-align:center;padding:30px 22px 26px;position:relative}
+  .oc-tick{width:66px;height:66px;border-radius:50%;background:#fff;margin:0 auto;display:flex;align-items:center;justify-content:center;
+           box-shadow:0 5px 0 rgba(0,0,0,.15)}
+  .oc-tick svg{width:38px;height:38px}
+  .oc-top h2{font-family:var(--display);font-weight:800;font-size:clamp(1.5rem,5vw,1.9rem);line-height:1.15;margin-top:12px}
+  .oc-top p{opacity:.95;margin-top:4px}
+  .oc-close{position:absolute;top:12px;right:12px;width:38px;height:38px;border-radius:50%;border:none;background:rgba(255,255,255,.25);
+            color:#fff;font-size:1.4rem;font-weight:800;cursor:pointer}
+  .oc-body{padding:20px 20px 24px}
+  .oc-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;background:#fff;border-radius:18px;padding:14px}
+  .oc-meta div{min-width:0}
+  .oc-meta small{display:block;color:var(--muted);font-weight:600;font-size:.76rem}
+  .oc-meta b{font-family:var(--display);font-weight:800;font-size:.98rem;word-break:break-all;line-height:1.25}
+  .oc h3{font-family:var(--display);font-weight:800;font-size:1.05rem;margin:18px 2px 8px}
+  .oc-box{background:#fff;border-radius:18px;padding:6px 16px}
+  .oc-line{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1.5px dashed #EADFCB;font-size:.95rem}
+  .oc-line:last-child{border-bottom:none}
+  .oc-line small{display:block;color:var(--muted);font-size:.82rem}
+  .oc-line .amt{font-weight:700;white-space:nowrap}
+  .oc-line.tot{font-family:var(--display);font-weight:800;font-size:1.12rem}
+  .oc-line.tot .amt{color:var(--tomato)}
+  .oc-addr{background:#fff;border-radius:18px;padding:14px 16px;font-size:.95rem;line-height:1.55}
+  .oc-addr b{font-family:var(--display)}
+  .oc-steps{list-style:none;display:grid;gap:10px;margin-top:2px}
+  .oc-steps li{display:flex;gap:12px;align-items:flex-start;font-size:.93rem}
+  .oc-steps li span:first-child{flex:none;width:30px;height:30px;border-radius:50%;background:var(--butter);display:flex;align-items:center;justify-content:center}
+  .oc-steps li.done span:first-child{background:var(--leaf);color:#fff;font-weight:800}
+  .oc-steps b{display:block;font-family:var(--display);line-height:1.3}
+  .oc-steps small{color:var(--muted)}
+  .oc-note{font-size:.84rem;color:var(--muted);margin-top:16px;text-align:center}
+  .oc-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:16px}
+  .oc-actions .btn{padding:11px 22px}
+  .btn-ghost{background:#fff;color:var(--ink);border:2.5px solid var(--ink);box-shadow:0 5px 0 var(--ink)}
+  .btn-ghost:hover{box-shadow:0 2px 0 var(--ink)}
+  @media(max-width:480px){.oc-meta{grid-template-columns:1fr 1fr}.oc-meta div:last-child{grid-column:1/-1}}
+  @media print{
+    body>*:not(.oc){display:none!important}
+    .oc{position:static;width:100%;max-height:none}
+    .oc-sheet{max-height:none;overflow:visible}
+    .oc-close,.oc-actions{display:none!important}
+    .oc-top{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
 </style>
 <script src="/pixel.js"></script>
 </head>
@@ -555,7 +593,7 @@
 </footer>
 
 <div class="cartbar" id="cartbar" hidden>
-  <button type="button" onclick="openCart()">🧺 <span id="cbCount">0</span> items · ₹<span id="cbTotal">0</span> — View order</button>
+  <button type="button" onclick="openCart()">🧺 <span id="cbCount">0</span> <span id="cbWord">items</span> · ₹<span id="cbTotal">0</span> — View order</button>
 </div>
 
 <div class="overlay" id="overlay" hidden onclick="closeCart()"></div>
@@ -580,20 +618,7 @@
     <p class="d-secure">🔒 UPI · Cards · Netbanking — secured by Razorpay</p>
   </form>
 </aside>
-<template id="successTpl">
-  <div class="d-done">
-    <div class="d-done-art" aria-hidden="true">🌸</div>
-    <h3>Order placed! Dhanyawad 🙏</h3>
-    <p>Maa will start on your batch fresh. We'll send courier tracking by SMS once it ships.</p>
-    <dl>
-      <dt>Order</dt><dd data-f="receipt"></dd>
-      <dt>Payment ID</dt><dd data-f="pid"></dd>
-      <dt>Paid</dt><dd data-f="amt"></dd>
-    </dl>
-    <p class="d-note">Keep this Payment ID for any questions about your order.</p>
-    <button type="button" class="btn d-cta" onclick="closeCart()">Back to the shop</button>
-  </div>
-</template>
+<dialog class="oc" id="orderConfirm" aria-labelledby="ocTitle"><div class="oc-sheet" id="ocSheet"></div></dialog>
 
 <a class="fab" id="fabWa" href="#" aria-label="Chat with us on WhatsApp" target="_blank" rel="noopener" hidden>
   <svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3Z" fill="none" stroke="#FFF8EE" stroke-width="1.8"/><path d="M9 9c0 4 2 6 6 6l1-2-2.5-1-1 .8c-1-.6-1.5-1.2-2-2.3l.8-1L10 7Z" fill="#FFF8EE"/></svg>
@@ -700,6 +725,7 @@ function updateCartUI(){
   const bar=document.getElementById("cartbar");
   bar.hidden = cart.length===0;
   document.getElementById("cbCount").textContent=cartCount();
+  document.getElementById("cbWord").textContent=cartCount()===1?"item":"items";
   document.getElementById("cbTotal").textContent=cartTotal();
   const box=document.getElementById("dItems");
   if(cart.length===0){box.innerHTML=`<p class="d-empty">Your dabba is empty — add some goodies! 🌸</p>`;}
@@ -727,7 +753,7 @@ function updateCartUI(){
   document.querySelector(".d-sums").hidden=empty;
   $("checkoutForm").hidden=empty;
 }
-function openCart(){if(document.querySelector(".d-done")&&cart.length)resetDrawer();document.getElementById("overlay").hidden=false;document.getElementById("drawer").hidden=false;document.body.style.overflow="hidden";}
+function openCart(){document.getElementById("overlay").hidden=false;document.getElementById("drawer").hidden=false;document.body.style.overflow="hidden";}
 function closeCart(){document.getElementById("overlay").hidden=true;document.getElementById("drawer").hidden=true;document.body.style.overflow="";}
 document.addEventListener("keydown",e=>{if(e.key==="Escape")closeCart();});
 
@@ -785,6 +811,7 @@ async function payNow(){
   const customer=readCustomer(); if(!customer) return;
   vkTrack("InitiateCheckout",pixelCart());
   const purchaseInfo=pixelCart();
+  const snapshot=cart.map(c=>{const p=PRODUCTS[c.pi],s=p.sizes[c.si];return {name:p.name,w:s.w,qty:c.qty,price:s.price,total:s.price*c.qty};});
   setPaying(true);
   try{
     const items=cart.map(c=>({id:PRODUCTS[c.pi].id,w:PRODUCTS[c.pi].sizes[c.si].w,qty:c.qty}));
@@ -798,7 +825,8 @@ async function payNow(){
         try{
           await postJSON("/api/verify-payment",resp);
           vkTrack("Purchase",{...purchaseInfo,value:order.grandTotal},resp.razorpay_payment_id);
-          showSuccess({receipt:order.receipt,pid:resp.razorpay_payment_id,amt:"₹"+order.grandTotal});
+          showConfirmation({receipt:order.receipt,paymentId:resp.razorpay_payment_id,placedAt:new Date().toISOString(),
+            lines:snapshot,itemsTotal:order.itemsTotal,shipping:order.shipping,grandTotal:order.grandTotal,customer});
         }catch(e){showErr(e.message+" Payment ID: "+resp.razorpay_payment_id);setPaying(false);}
       },
       modal:{ondismiss:()=>setPaying(false)}
@@ -808,19 +836,69 @@ async function payNow(){
     vkTrack("AddPaymentInfo",{currency:"INR",value:order.grandTotal,content_ids:purchaseInfo.content_ids});
   }catch(e){showErr(e.message);setPaying(false);}
 }
-function showSuccess(d){
-  cart=[];updateCartUI();
-  const frag=$("successTpl").content.cloneNode(true);
-  frag.querySelector('[data-f="receipt"]').textContent=d.receipt;
-  frag.querySelector('[data-f="pid"]').textContent=d.pid;
-  frag.querySelector('[data-f="amt"]').textContent=d.amt;
-  const dr=$("drawer");[...dr.children].forEach(el=>{if(!el.classList.contains("d-head"))el.hidden=true;});
-  dr.appendChild(frag);
+/* ---------- order confirmation ---------- */
+function h(v){return String(v==null?"":v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function showConfirmation(o,fromReload){
+  if(!fromReload){
+    cart=[];updateCartUI();closeCart();setPaying(false);
+    try{localStorage.setItem("vk_last_order",JSON.stringify(o));}catch(e){}
+    try{history.replaceState(null,"","?order="+encodeURIComponent(o.receipt));}catch(e){}
+  }
+  const when=new Date(o.placedAt).toLocaleString("en-IN",{day:"numeric",month:"short",year:"numeric",hour:"numeric",minute:"2-digit"});
+  const c=o.customer||{};
+  $("ocSheet").innerHTML=`
+    <div class="oc-top">
+      <button type="button" class="oc-close" aria-label="Close" onclick="closeConfirmation()">×</button>
+      <div class="oc-tick" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M10 21l7 7 14-15" fill="none" stroke="#7FB069" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <h2 id="ocTitle">Order confirmed! Dhanyawad 🙏</h2>
+      <p>Payment received. Maa will make your batch fresh.</p>
+    </div>
+    <div class="oc-body">
+      <div class="oc-meta">
+        <div><small>Order no.</small><b>${h(o.receipt)}</b></div>
+        <div><small>Paid</small><b>₹${h(o.grandTotal)}</b></div>
+        <div><small>Placed on</small><b>${h(when)}</b></div>
+      </div>
+
+      <h3>What you ordered</h3>
+      <div class="oc-box">
+        ${o.lines.map(l=>`<div class="oc-line"><span>${h(l.name)} × ${h(l.qty)}<small>${h(l.w)} · ₹${h(l.price)} each</small></span><span class="amt">₹${h(l.total)}</span></div>`).join("")}
+        <div class="oc-line"><span>Items</span><span class="amt">₹${h(o.itemsTotal)}</span></div>
+        <div class="oc-line"><span>Shipping</span><span class="amt">${o.shipping?"₹"+h(o.shipping):"Free"}</span></div>
+        <div class="oc-line tot"><span>Total paid</span><span class="amt">₹${h(o.grandTotal)}</span></div>
+      </div>
+
+      <h3>Delivering to</h3>
+      <div class="oc-addr"><b>${h(c.name)}</b><br>${h(c.address)}<br>PIN ${h(c.pin)}<br>📞 +91 ${h(c.phone)}${c.email?`<br>✉️ ${h(c.email)}`:""}</div>
+
+      <h3>What happens next</h3>
+      <ol class="oc-steps">
+        <li class="done"><span>✓</span><span><b>Order confirmed &amp; paid</b><small>Payment ID ${h(o.paymentId)}</small></span></li>
+        <li><span>👩‍🍳</span><span><b>Maa makes your batch fresh</b><small>By hand, in her kitchen in Medininagar.</small></span></li>
+        <li><span>📦</span><span><b>Packed &amp; shipped</b><small>We'll SMS your courier tracking link to +91 ${h(c.phone)}.</small></span></li>
+        <li><span>🏠</span><span><b>Delivered to your door</b><small>Anywhere in India.</small></span></li>
+      </ol>
+
+      <p class="oc-note">Questions about your order? Write to <a href="mailto:hello@vanakusum.in?subject=Order%20${encodeURIComponent(o.receipt)}">hello@vanakusum.in</a> with your order no. ${h(o.receipt)}.</p>
+      <div class="oc-actions">
+        <button type="button" class="btn btn-ghost" onclick="window.print()">Save / print receipt</button>
+        <button type="button" class="btn" onclick="closeConfirmation()">Back to the shop</button>
+      </div>
+    </div>`;
+  const d=$("orderConfirm"); if(!d.open) d.showModal();
+  $("ocSheet").scrollTop=0;
 }
-function resetDrawer(){
-  const dr=$("drawer");dr.querySelectorAll(".d-done").forEach(x=>x.remove());
-  [...dr.children].forEach(el=>el.hidden=false);
+function closeConfirmation(){
+  const d=$("orderConfirm"); if(d.open) d.close();
 }
+$("orderConfirm").addEventListener("close",()=>{try{history.replaceState(null,"",location.pathname+location.hash);}catch(e){}});
+(function reopenAfterRefresh(){
+  try{
+    const id=new URLSearchParams(location.search).get("order"); if(!id) return;
+    const o=JSON.parse(localStorage.getItem("vk_last_order")||"null");
+    if(o&&o.receipt===id) showConfirmation(o,true);
+  }catch(e){}
+})();
 
 /* ---------- small wiring ---------- */
 document.querySelectorAll(".shipFlat").forEach(e=>e.textContent="₹"+SHIP.flat);
